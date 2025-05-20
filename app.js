@@ -1,5 +1,5 @@
 const uploadEndpoint = 'https://3s2sew1mjh.execute-api.eu-north-1.amazonaws.com/prod/upload';
-const downloadEndpoint = 'https://3s2sew1mjh.execute-api.eu-north-1.amazonaws.com/prod/download';
+const downloadEndpoint = 'https://3s2sew1mjh.execute-api.eu-north-1.amazonaws.com/prod/upload';
 
 document.getElementById('uploadBtn').addEventListener('click', async () => {
   const fileInput = document.getElementById('fileInput');
