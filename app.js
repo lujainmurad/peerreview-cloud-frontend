@@ -1,7 +1,6 @@
 const uploadEndpoint = 'https://3s2sew1mjh.execute-api.eu-north-1.amazonaws.com/prod/upload';
 const downloadEndpoint = 'https://3s2sew1mjh.execute-api.eu-north-1.amazonaws.com/prod/download';
 
-
 document.getElementById('uploadBtn').addEventListener('click', async () => {
   const fileInput = document.getElementById('fileInput');
   const status = document.getElementById('uploadStatus');
@@ -15,6 +14,7 @@ document.getElementById('uploadBtn').addEventListener('click', async () => {
   const fileName = encodeURIComponent(file.name);
 
   try {
+    // Use file.text() if your Lambda expects plain text
     const fileContent = await file.text();
     const response = await fetch(`${uploadEndpoint}?fileName=${fileName}`, {
       method: 'POST',
@@ -33,7 +33,7 @@ document.getElementById('uploadBtn').addEventListener('click', async () => {
 document.getElementById('downloadBtn').addEventListener('click', async () => {
   const fileNameInput = document.getElementById('downloadFileName');
   const status = document.getElementById('downloadStatus');
-  const fileName = encodeURIComponent(fileNameInput.value.trim());
+  const fileName = fileNameInput.value.trim();
 
   if (!fileName) {
     status.style.color = 'red';
@@ -42,7 +42,7 @@ document.getElementById('downloadBtn').addEventListener('click', async () => {
   }
 
   try {
-    const response = await fetch(`${downloadEndpoint}?fileName=${fileName}`, { method: 'GET' });
+    const response = await fetch(`${downloadEndpoint}?fileName=${encodeURIComponent(fileName)}`);
 
     if (!response.ok) {
       status.style.color = 'red';
@@ -50,35 +50,23 @@ document.getElementById('downloadBtn').addEventListener('click', async () => {
       return;
     }
 
-    const data = await response.json();
+    // Get response as a Blob directly (assuming your Lambda returns binary properly)
+    const blob = await response.blob();
 
-    // Base64 decode and create Blob to download file
-    const base64Content = data.body;
-    const blob = base64ToBlob(base64Content);
-    const url = window.URL.createObjectURL(blob);
-
+    // Create object URL and trigger download
+    const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = decodeURIComponent(fileName);
+    a.download = fileName;
     document.body.appendChild(a);
     a.click();
     a.remove();
-    window.URL.revokeObjectURL(url);
+    URL.revokeObjectURL(url);
 
     status.style.color = 'green';
     status.textContent = 'Download started!';
-
   } catch (error) {
     status.style.color = 'red';
     status.textContent = `Download error: ${error.message}`;
   }
 });
-
-function base64ToBlob(base64) {
-  const binary = atob(base64);
-  const array = [];
-  for (let i = 0; i < binary.length; i++) {
-    array.push(binary.charCodeAt(i));
-  }
-  return new Blob([new Uint8Array(array)]);
-}
