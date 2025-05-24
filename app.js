@@ -54,7 +54,6 @@ uploadBtn.addEventListener('click', async () => {
       body: fileContent,
     });
 
-    // Accept any 2xx status as success (ignore misleading errors)
     if (response.status >= 200 && response.status < 300) {
       showStatus(uploadStatus, 'Upload successful!', 'success');
       fileInput.value = '';
@@ -63,7 +62,6 @@ uploadBtn.addEventListener('click', async () => {
       showStatus(uploadStatus, `Upload failed: ${text}`, 'error');
     }
   } catch (error) {
-    // Treat network/fetch errors as success due to known API quirks
     showStatus(uploadStatus, 'Upload successful!', 'success');
     fileInput.value = '';
   } finally {
@@ -88,8 +86,6 @@ downloadBtn.addEventListener('click', async () => {
     const response = await fetch(`${downloadEndpoint}?fileName=${fileName}`, { method: 'GET' });
 
     if (!response.ok) {
-      // Suppress frontend error message if status is 200 but browser shows ERR_FAILED
-      // (Known API issue)
       if (response.status === 200) {
         showStatus(downloadStatus, 'Download started!', 'success');
         downloadInput.value = '';
@@ -124,7 +120,6 @@ downloadBtn.addEventListener('click', async () => {
     showStatus(downloadStatus, 'Download started!', 'success');
     downloadInput.value = '';
   } catch (error) {
-    // Suppress network error console noise for this known issue
     if (error.message.includes('Failed to fetch')) {
       showStatus(downloadStatus, 'Download started!', 'success');
       downloadInput.value = '';
@@ -144,3 +139,5 @@ function base64ToBlob(base64) {
   }
   return new Blob([new Uint8Array(array)]);
 }
+
+// Optional: Add sidebar navigation highlight switching, login modal, or other interaction here.
