@@ -26,6 +26,13 @@ const sidebarToggle = document.getElementById('sidebarToggle');
 const navList = document.querySelector('.nav-list');
 const navLinks = document.querySelectorAll('.nav-link');
 
+const userProfile = document.getElementById('userProfile');
+const userAvatar = document.getElementById('userAvatar');
+const usernameDisplay = document.getElementById('usernameDisplay');
+const logoutBtn = document.getElementById('logoutBtn');
+
+const appContainer = document.getElementById('appContainer');
+
 /* STATUS MESSAGE HELPERS */
 function showStatus(element, message, type = 'success') {
   element.textContent = message;
@@ -93,7 +100,7 @@ uploadBtn.addEventListener('click', async () => {
 });
 
 /* DOWNLOAD HANDLER */
-downloadBtn.addEventListener('click', async () => {
+downloadBtn?.addEventListener('click', async () => {
   clearStatus(downloadStatus);
   const fileNameRaw = downloadInput.value.trim();
 
@@ -156,8 +163,6 @@ downloadBtn.addEventListener('click', async () => {
 });
 
 /* REVIEW SUBMISSION HANDLER */
-const submitReviewBtn = document.getElementById('submitReviewBtn');
-
 submitReviewBtn.addEventListener('click', async () => {
   clearStatus(reviewStatus);
   const reviewText = reviewInput.value.trim();
@@ -181,7 +186,6 @@ submitReviewBtn.addEventListener('click', async () => {
       fileName = encodeURIComponent('review.txt');
     }
 
-    // Send review (simulate POST)
     const response = await fetch(`${uploadEndpoint}?fileName=${fileName}`, {
       method: 'POST',
       headers: { 'Content-Type': 'text/plain' },
@@ -232,12 +236,13 @@ loginForm.addEventListener('submit', async e => {
 
   try {
     await new Promise(r => setTimeout(r, 1200)); // fake delay
+    // Demo: login success if username == "admin" & password == "password"
     if (username === 'admin' && password === 'password') {
       loginStatus.textContent = 'Login successful! Redirecting...';
       loginStatus.className = 'status-message visible success';
       setTimeout(() => {
         closeLoginModal();
-        alert('Logged in as admin. (Demo)');
+        setUser(username);
       }, 1000);
     } else {
       loginStatus.textContent = 'Invalid username or password.';
@@ -298,3 +303,126 @@ function base64ToBlob(base64) {
   }
   return new Blob([new Uint8Array(array)]);
 }
+
+/* USER PROFILE & AVATAR GENERATION (Pixelated Identicon) */
+function setUser(username) {
+  // Save username to localStorage (simulate login persistence)
+  localStorage.setItem('pr_username', username);
+  updateUserProfile();
+}
+
+function clearUser() {
+  localStorage.removeItem('pr_username');
+  updateUserProfile();
+}
+
+function updateUserProfile() {
+  const username = localStorage.getItem('pr_username');
+  const isLoggedIn = !!username;
+
+  usernameDisplay.textContent = isLoggedIn ? username : '';
+  loginBtn.hidden = isLoggedIn;
+  logoutBtn.hidden = !isLoggedIn;
+
+  if (isLoggedIn) {
+    generateIdenticon(username, userAvatar);
+    userProfile.setAttribute('tabindex', '0');
+  } else {
+    clearCanvas(userAvatar);
+    userProfile.removeAttribute('tabindex');
+  }
+}
+
+logoutBtn.addEventListener('click', () => {
+  clearUser();
+});
+
+/**
+ * Generate a simple pixelated identicon based on username hash.
+ * Very simple, 5x5 grid, 2 colors.
+ */
+function generateIdenticon(name, canvas) {
+  const ctx = canvas.getContext('2d');
+  const size = canvas.width;
+  const block = size / 5;
+
+  // Clear canvas
+  ctx.clearRect(0, 0, size, size);
+
+  // Hash function: simple djb2
+  let hash = 5381;
+  for (let i = 0; i < name.length; i++) {
+    hash = ((hash << 5) + hash) + name.charCodeAt(i);
+  }
+
+  // Colors (Dropbox style)
+  const bgColor = getComputedStyle(document.documentElement).getPropertyValue('--bg-color').trim() || '#f7f9fc';
+  const fgColor = getComputedStyle(document.documentElement).getPropertyValue('--primary-color').trim() || '#007ee5';
+
+  // Fill background
+  ctx.fillStyle = bgColor;
+  ctx.fillRect(0, 0, size, size);
+
+  ctx.fillStyle = fgColor;
+
+  // Draw symmetric pattern
+  for (let x = 0; x < 3; x++) {
+    for (let y = 0; y < 5; y++) {
+      // Pick bits from hash
+      const i = x * 5 + y;
+      const bit = (hash >> i) & 1;
+
+      if (bit === 1) {
+        ctx.fillRect(x * block, y * block, block, block);
+        // mirror on right side
+        ctx.fillRect((4 - x) * block, y * block, block, block);
+      }
+    }
+  }
+}
+
+/* Clear canvas helper */
+function clearCanvas(canvas) {
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+/* THEME TOGGLE */
+const themeToggle = document.getElementById('themeToggle');
+const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+function loadTheme() {
+  let theme = localStorage.getItem('pr_theme');
+  if (!theme) {
+    theme = prefersDark ? 'dark' : 'light';
+  }
+  applyTheme(theme);
+}
+
+function applyTheme(theme) {
+  if (theme === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    themeToggle.textContent = '☀️';
+    themeToggle.setAttribute('aria-label', 'Switch to light mode');
+  } else {
+    document.documentElement.setAttribute('data-theme', 'light');
+    themeToggle.textContent = '🌙';
+    themeToggle.setAttribute('aria-label', 'Switch to dark mode');
+  }
+  localStorage.setItem('pr_theme', theme);
+}
+
+themeToggle.addEventListener('click', () => {
+  const current = document.documentElement.getAttribute('data-theme');
+  if (current === 'dark') {
+    applyTheme('light');
+  } else {
+    applyTheme('dark');
+  }
+});
+
+/* Initialize on load */
+window.addEventListener('DOMContentLoaded', () => {
+  loadTheme();
+  updateUserProfile();
+});
