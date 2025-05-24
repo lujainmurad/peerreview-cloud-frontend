@@ -7,10 +7,9 @@
 }
 
 :root {
-  /* Minimalist professional palette */
   --bg-color: #f9fafb;
   --text-color: #222222;
-  --primary-color: #0052cc;
+  --primary-color: #0055cc;
   --primary-dark: #003d99;
   --primary-light: #6c8cff;
   --sidebar-bg: #111820;
@@ -70,9 +69,7 @@ body, html, .app-container {
   padding: 24px 20px;
   color: var(--sidebar-text);
   box-shadow: 3px 0 15px rgba(0,0,0,0.75);
-  transition:
-    width 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-    padding 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1), padding 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 20;
   position: relative;
   overflow: visible;
@@ -167,7 +164,6 @@ body, html, .app-container {
   color: var(--sidebar-bg);
   cursor: default;
   font-weight: 700;
-
 }
 
 .sidebar.closed .nav-link span {
