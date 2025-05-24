@@ -75,12 +75,13 @@ body, html, .app-container {
     padding 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 20;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .sidebar.closed {
   width: 76px;
   padding: 24px 10px;
+  overflow: visible;
 }
 
 .sidebar-header {
@@ -89,6 +90,8 @@ body, html, .app-container {
   gap: 14px;
   margin-bottom: 44px;
   transition: gap 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  white-space: nowrap;
+  user-select: none;
 }
 
 .sidebar.closed .sidebar-header {
@@ -108,10 +111,16 @@ body, html, .app-container {
   text-decoration: none;
   transition: opacity 0.3s ease, gap 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   flex-grow: 1;
+  overflow: visible;
 }
 
 .sidebar.closed .logo-link .logo-text {
-  display: none;
+  display: inline-block;
+  opacity: 0;
+  max-width: 0;
+  overflow: hidden;
+  transition: opacity 0.35s ease, max-width 0.35s ease;
+  pointer-events: none;
 }
 
 .sidebar.closed .logo-link svg {
@@ -129,6 +138,7 @@ body, html, .app-container {
   padding: 6px;
   color: var(--sidebar-text);
   transition: transform 0.35s ease;
+  flex-shrink: 0;
 }
 
 .sidebar-toggle:hover,
@@ -170,6 +180,7 @@ body, html, .app-container {
   font-size: 1.1rem;
   color: var(--sidebar-text);
   transition: gap 0.35s ease;
+  user-select: none;
 }
 
 .sidebar.closed .user-profile {
@@ -240,6 +251,8 @@ body, html, .app-container {
   max-width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
+  flex-shrink: 0;
+  align-self: center;
 }
 
 .login-btn:hover,
@@ -346,7 +359,7 @@ body, html, .app-container {
 }
 
 .hero {
-  max-width: 700px;
+  max-width: 720px;
   margin-bottom: 56px;
 }
 
@@ -397,9 +410,10 @@ body, html, .app-container {
   padding: 44px 56px;
   margin-bottom: 64px;
   box-shadow: 0 12px 48px rgba(0, 82, 204, 0.1);
-  max-width: 700px;
+  max-width: 720px;
   color: var(--text-color);
   position: relative;
+  box-sizing: border-box;
 }
 
 .action-section h3 {
@@ -438,12 +452,17 @@ body, html, .app-container {
   flex-wrap: nowrap;
   align-items: center;
   margin-bottom: 28px;
+  flex-wrap: nowrap;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  width: 100%;
 }
 
 .review-input-group {
   justify-content: flex-start;
 }
 
+/* File input */
 input[type="file"] {
   flex-grow: 1;
   padding: 18px 24px;
@@ -455,6 +474,8 @@ input[type="file"] {
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
   font-family: inherit;
   box-sizing: border-box;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 input[type="file"]:focus {
@@ -479,6 +500,7 @@ input[type="file"]::-webkit-file-upload-button:hover {
   background: var(--primary-dark);
 }
 
+/* Buttons */
 button, .btn-primary {
   padding: 18px 48px;
   background: var(--button-bg);
@@ -544,6 +566,29 @@ button:disabled {
   margin-bottom: 32px;
   color: var(--text-color);
   max-width: 620px;
+}
+
+/* Dropzone styling */
+.dropzone {
+  border: 2px dashed var(--input-border);
+  border-radius: 20px;
+  padding: 30px 30px 18px;
+  position: relative;
+  cursor: pointer;
+  transition: border-color 0.3s ease, background-color 0.2s ease;
+}
+
+.dropzone.dragover {
+  border-color: var(--primary-color);
+  background-color: var(--primary-light)22;
+}
+
+.drop-hint {
+  font-size: 1rem;
+  color: var(--input-border);
+  margin-top: 10px;
+  user-select: none;
+  text-align: center;
 }
 
 /* Modal styles */
