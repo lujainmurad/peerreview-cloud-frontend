@@ -9,7 +9,7 @@
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  background: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
+  background: linear-gradient(135deg, #d0e8f2 0%, #a4d7d1 100%);
   color: #1e2a38;
   max-width: 760px;
   margin: 48px auto 64px;
@@ -27,7 +27,7 @@ header {
 header h1 {
   font-weight: 800;
   font-size: 3rem;
-  color: #0f172a;
+  color: #05445e;
   letter-spacing: 0.05em;
   margin-bottom: 6px;
   user-select: text;
@@ -36,7 +36,7 @@ header h1 {
 .tagline {
   font-style: italic;
   font-weight: 600;
-  color: #3b82f6;
+  color: #189ab4;
   font-size: 1.3rem;
   user-select: text;
 }
@@ -47,30 +47,31 @@ main .intro p {
   max-width: 720px;
   margin-left: auto;
   margin-right: auto;
-  color: #334155;
+  color: #07575b;
   user-select: text;
 }
 
 .action-section {
-  background: #ffffff;
+  background: #ffffffcc;
+  backdrop-filter: saturate(180%) blur(10px);
   border-radius: 14px;
   padding: 28px 32px;
   margin-bottom: 52px;
-  box-shadow: 0 16px 35px rgba(59, 130, 246, 0.15);
+  box-shadow: 0 16px 35px rgba(3, 59, 85, 0.25);
   transition: box-shadow 0.35s ease;
   will-change: box-shadow;
 }
 
 .action-section:hover {
-  box-shadow: 0 24px 55px rgba(59, 130, 246, 0.25);
+  box-shadow: 0 24px 55px rgba(3, 59, 85, 0.35);
 }
 
 h2 {
-  color: #0f172a;
+  color: #05445e;
   font-weight: 700;
   font-size: 1.7rem;
   margin-bottom: 20px;
-  border-bottom: 3px solid #3b82f6;
+  border-bottom: 3px solid #75e6da;
   padding-bottom: 8px;
   letter-spacing: 0.05em;
   user-select: text;
@@ -89,8 +90,8 @@ input[type="text"] {
   padding: 14px 20px;
   font-size: 1.1rem;
   border-radius: 10px;
-  border: 2px solid #93c5fd;
-  color: #0f172a;
+  border: 2px solid #75e6da;
+  color: #05445e;
   font-weight: 600;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
   min-width: 250px;
@@ -100,15 +101,15 @@ input[type="text"] {
 input[type="file"]:focus,
 input[type="text"]:focus {
   outline: none;
-  border-color: #2563eb;
-  box-shadow: 0 0 12px #2563ebaa;
+  border-color: #189ab4;
+  box-shadow: 0 0 12px #189ab4aa;
 }
 
 input[type="file"]::-webkit-file-upload-button {
   cursor: pointer;
   padding: 8px 16px;
   border-radius: 8px;
-  background: #3b82f6;
+  background: #189ab4;
   color: white;
   font-weight: 600;
   border: none;
@@ -116,12 +117,12 @@ input[type="file"]::-webkit-file-upload-button {
 }
 
 input[type="file"]::-webkit-file-upload-button:hover {
-  background: #2563eb;
+  background: #05445e;
 }
 
 button {
   padding: 14px 34px;
-  background: #2563eb;
+  background: #05445e;
   color: white;
   border: none;
   border-radius: 12px;
@@ -129,21 +130,21 @@ button {
   font-weight: 700;
   cursor: pointer;
   user-select: none;
-  transition: background-color 0.3s ease, transform 0.15s ease;
+  transition: background-color 0.3s ease, transform 0.15s ease, box-shadow 0.3s ease;
   min-width: 130px;
-  box-shadow: 0 6px 12px rgba(37, 99, 235, 0.5);
+  box-shadow: 0 6px 12px rgba(5, 68, 94, 0.6);
 }
 
 button:hover:not(:disabled),
 button:focus:not(:disabled) {
-  background-color: #1e40af;
+  background-color: #189ab4;
   transform: translateY(-2px);
-  box-shadow: 0 8px 18px rgba(30, 64, 175, 0.7);
+  box-shadow: 0 10px 18px rgba(24, 154, 180, 0.85);
   outline: none;
 }
 
 button:disabled {
-  background-color: #a5b4fc;
+  background-color: #a4d7d1;
   cursor: not-allowed;
   box-shadow: none;
   transform: none;
@@ -166,17 +167,17 @@ button:disabled {
 }
 
 .status-message.success {
-  color: #059669;
+  color: #16a085;
 }
 
 .status-message.error {
-  color: #dc2626;
+  color: #c0392b;
 }
 
 footer {
   text-align: center;
   font-size: 0.9rem;
-  color: #64748b;
+  color: #07575b;
   margin-top: 56px;
   user-select: none;
   font-weight: 600;
