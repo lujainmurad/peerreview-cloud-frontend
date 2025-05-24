@@ -20,9 +20,9 @@
         </button>
 
         <a href="#" class="logo-link" aria-label="PeerReview Home">
-          <svg id="peerReviewIcon" width="36" height="36" viewBox="0 0 120 120" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" fill="none">
-            <polygon fill="#007EE5" points="60,15 90,45 60,75 30,45"/>
-            <polygon fill="#004A99" points="60,75 90,45 90,90 60,120 30,90 30,45"/>
+          <svg id="peerReviewIcon" width="36" height="36" viewBox="0 0 120 120" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" fill="none" aria-label="PeerReview logo">
+            <polygon fill="#0055cc" points="60,15 90,45 60,75 30,45"/>
+            <polygon fill="#003d99" points="60,75 90,45 90,90 60,120 30,90 30,45"/>
           </svg>
           <span class="logo-text">PeerReview</span>
         </a>
@@ -50,7 +50,7 @@
       </ul>
 
       <div class="sidebar-footer">
-        <div class="user-profile" id="userProfile" tabindex="0" aria-label="User profile">
+        <div class="user-profile" id="userProfile" tabindex="0" aria-label="User profile" role="button" aria-haspopup="dialog" aria-controls="profileModal" title="Open profile customization">
           <canvas id="userAvatar" width="40" height="40" aria-hidden="true"></canvas>
           <span id="usernameDisplay" class="username-text">Guest</span>
           <button id="logoutBtn" title="Logout" aria-label="Logout" hidden>&times;</button>
@@ -67,16 +67,16 @@
 
     <main class="main-content" role="main" tabindex="-1">
       <section class="hero" aria-label="Platform Overview">
-        <h2>Secure & Scalable Academic Peer Review</h2>
-        <p>
-          PeerReview Cloud centralizes paper submissions, review feedback, and administration — all in one secure, user-friendly platform designed for authors, reviewers, and admins.
+        <h2>Secure, Scalable Peer Review Cloud</h2>
+        <p class="hero-desc">
+          Centralize paper submissions, feedback, and administration in one secure, easy-to-use platform tailored for authors, reviewers, and admins.
         </p>
         <ul class="features-list">
-          <li><strong>User Roles:</strong> Author, Reviewer, Admin with role-based access</li>
-          <li><strong>Upload & Download:</strong> Submit papers and supplementary files securely</li>
-          <li><strong>Review Submission:</strong> Structured evaluations via text or documents</li>
-          <li><strong>Secure & Logged:</strong> All file operations are logged, versioned, and auditable</li>
-          <li><strong>Scalable:</strong> Supports small research groups to large conferences</li>
+          <li><strong>User Roles:</strong> Author, Reviewer, Admin with fine-grained access</li>
+          <li><strong>Upload & Download:</strong> Submit and retrieve papers & supplementary files securely</li>
+          <li><strong>Review Submission:</strong> Structured evaluations via text or attachments</li>
+          <li><strong>Secure & Audited:</strong> All operations logged, versioned, and monitored</li>
+          <li><strong>Highly Scalable:</strong> For small teams or large academic conferences</li>
         </ul>
       </section>
 
@@ -92,7 +92,7 @@
       <section id="review-section" class="action-section" tabindex="-1" aria-label="Submit Review Feedback">
         <h3>Submit Review Feedback</h3>
         <textarea id="reviewInput" placeholder="Write your review here or attach a file below..." aria-label="Review text"></textarea>
-        <div class="input-group">
+        <div class="input-group review-input-group">
           <input type="file" id="reviewFile" aria-label="Attach a review document" />
           <button id="submitReviewBtn">Submit Review</button>
         </div>
@@ -124,6 +124,16 @@
         <button type="submit" class="btn-primary">Login</button>
         <p id="loginStatus" class="status-message" role="alert" aria-live="assertive"></p>
       </form>
+    </div>
+  </div>
+
+  <!-- Profile Modal Placeholder -->
+  <div id="profileModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="profileTitle" aria-hidden="true" tabindex="-1">
+    <div class="modal-content">
+      <button class="modal-close" id="closeProfileBtn" aria-label="Close profile customization">&times;</button>
+      <h2 id="profileTitle">Profile Customization</h2>
+      <p>Feature coming soon! Here you could customize your avatar and settings.</p>
+      <button class="btn-primary" id="profileCloseBtn">Close</button>
     </div>
   </div>
 
