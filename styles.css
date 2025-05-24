@@ -7,42 +7,42 @@
 }
 
 :root {
-  /* Dropbox-inspired professional color palette */
-  --bg-color: #f7f9fc;
-  --text-color: #24292f;
-  --primary-color: #0061ff;
-  --primary-dark: #0046b8;
-  --primary-light: #4f8cff;
-  --sidebar-bg: #161b22;
-  --sidebar-text: #c9d1d9;
-  --button-bg: #0061ff;
-  --button-hover-bg: #0046b8;
-  --input-border: #c9d1d9;
-  --input-focus-border: #0061ff;
-  --modal-shadow: rgba(0, 97, 255, 0.25);
+  /* Minimalist professional palette */
+  --bg-color: #f9fafb;
+  --text-color: #222222;
+  --primary-color: #0052cc;
+  --primary-dark: #003d99;
+  --primary-light: #6c8cff;
+  --sidebar-bg: #111820;
+  --sidebar-text: #bfc7d5;
+  --button-bg: #0052cc;
+  --button-hover-bg: #003d99;
+  --input-border: #c5cbd6;
+  --input-focus-border: #0052cc;
+  --modal-shadow: rgba(0, 82, 204, 0.2);
   --success-color: #28a745;
-  --error-color: #d73a49;
-  --link-hover-bg: #0046b8;
-  --feature-tick-color: #0061ff;
+  --error-color: #d93025;
+  --link-hover-bg: #003d99;
+  --feature-tick-color: #0052cc;
 }
 
 [data-theme='dark'] {
-  --bg-color: #0d1117;
-  --text-color: #c9d1d9;
-  --primary-color: #539bf5;
-  --primary-dark: #4076d9;
-  --primary-light: #85b8ff88;
-  --sidebar-bg: #161b22;
-  --sidebar-text: #c9d1d9;
-  --button-bg: #539bf5;
-  --button-hover-bg: #4076d9;
-  --input-border: #539bf5;
-  --input-focus-border: #4076d9;
-  --modal-shadow: rgba(83, 155, 245, 0.4);
+  --bg-color: #121721;
+  --text-color: #d7dae0;
+  --primary-color: #6c8cff;
+  --primary-dark: #4062d9;
+  --primary-light: #a3bfffcc;
+  --sidebar-bg: #1c2431;
+  --sidebar-text: #c2c9d9;
+  --button-bg: #6c8cff;
+  --button-hover-bg: #4062d9;
+  --input-border: #6c8cff;
+  --input-focus-border: #4062d9;
+  --modal-shadow: rgba(108, 140, 255, 0.3);
   --success-color: #28a745;
-  --error-color: #f85149;
-  --link-hover-bg: #4076d9;
-  --feature-tick-color: #539bf5;
+  --error-color: #f44336;
+  --link-hover-bg: #4062d9;
+  --feature-tick-color: #6c8cff;
 }
 
 body, html, .app-container {
@@ -67,28 +67,28 @@ body, html, .app-container {
   width: 280px;
   display: flex;
   flex-direction: column;
-  padding: 24px 20px;
+  padding: 24px 22px;
   color: var(--sidebar-text);
-  box-shadow: 3px 0 15px rgba(0,0,0,0.85);
+  box-shadow: 3px 0 15px rgba(0,0,0,0.75);
   transition:
-    width 0.3s ease,
-    padding 0.3s ease;
+    width 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+    padding 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 20;
   position: relative;
   overflow: hidden;
 }
 
 .sidebar.closed {
-  width: 72px;
-  padding: 24px 8px;
+  width: 76px;
+  padding: 24px 10px;
 }
 
 .sidebar-header {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 40px;
-  transition: gap 0.3s ease;
+  gap: 14px;
+  margin-bottom: 44px;
+  transition: gap 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .sidebar.closed .sidebar-header {
@@ -99,14 +99,14 @@ body, html, .app-container {
 .logo-link {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
   color: var(--sidebar-text);
   font-weight: 700;
-  font-size: 1.7rem;
+  font-size: 1.75rem;
   user-select: text;
   white-space: nowrap;
   text-decoration: none;
-  transition: opacity 0.3s ease, gap 0.3s ease;
+  transition: opacity 0.3s ease, gap 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   flex-grow: 1;
 }
 
@@ -128,7 +128,7 @@ body, html, .app-container {
   cursor: pointer;
   padding: 6px;
   color: var(--sidebar-text);
-  transition: transform 0.3s ease;
+  transition: transform 0.35s ease;
 }
 
 .sidebar-toggle:hover,
@@ -155,21 +155,21 @@ body, html, .app-container {
   gap: 8px;
   align-items: center;
   padding-top: 20px;
-  border-top: 1px solid #222;
+  border-top: 1px solid #1c2535;
 }
 
 .user-profile {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 16px;
   width: 100%;
   justify-content: center;
-  cursor: default;
+  cursor: pointer;
   position: relative;
   font-weight: 600;
   font-size: 1.1rem;
   color: var(--sidebar-text);
-  transition: gap 0.3s ease;
+  transition: gap 0.35s ease;
 }
 
 .sidebar.closed .user-profile {
@@ -181,7 +181,7 @@ body, html, .app-container {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 120px;
+  max-width: 140px;
   user-select: text;
   transition: opacity 0.3s ease;
 }
@@ -202,7 +202,7 @@ body, html, .app-container {
   background: transparent;
   color: var(--sidebar-text);
   font-weight: 700;
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   cursor: pointer;
   user-select: none;
   opacity: 0.8;
@@ -260,6 +260,15 @@ body, html, .app-container {
   border: none;
   background: var(--primary-color);
   color: var(--sidebar-bg);
+  transition: opacity 0.3s ease;
+}
+
+.sidebar.closed .login-btn.hidden {
+  opacity: 0;
+  pointer-events: none;
+  width: 0;
+  margin: 0;
+  padding: 0;
 }
 
 /* Navigation */
@@ -271,7 +280,7 @@ body, html, .app-container {
 }
 
 .nav-list li + li {
-  margin-top: 20px;
+  margin-top: 22px;
 }
 
 .nav-link {
@@ -280,9 +289,9 @@ body, html, .app-container {
   gap: 16px;
   padding: 14px 20px;
   font-weight: 600;
-  font-size: 1.12rem;
+  font-size: 1.15rem;
   color: var(--sidebar-text);
-  border-radius: 14px;
+  border-radius: 16px;
   text-decoration: none;
   transition: background-color 0.25s ease, color 0.25s ease;
   user-select: none;
@@ -337,7 +346,7 @@ body, html, .app-container {
 }
 
 .hero {
-  max-width: 720px;
+  max-width: 700px;
   margin-bottom: 56px;
 }
 
@@ -349,7 +358,7 @@ body, html, .app-container {
   color: var(--primary-color);
 }
 
-.hero p {
+.hero-desc {
   font-size: 1.3rem;
   line-height: 1.6;
   color: var(--text-color);
@@ -387,9 +396,10 @@ body, html, .app-container {
   border-radius: 18px;
   padding: 44px 56px;
   margin-bottom: 64px;
-  box-shadow: 0 12px 48px rgba(0, 97, 255, 0.12);
-  max-width: 720px;
+  box-shadow: 0 12px 48px rgba(0, 82, 204, 0.1);
+  max-width: 700px;
   color: var(--text-color);
+  position: relative;
 }
 
 .action-section h3 {
@@ -402,16 +412,17 @@ body, html, .app-container {
 /* Review textarea */
 #reviewInput {
   width: 100%;
-  height: 160px;
-  border-radius: 16px;
-  font-size: 1.15rem;
-  padding: 20px 24px;
+  min-height: 180px;
+  border-radius: 18px;
+  font-size: 1.2rem;
+  padding: 22px 28px;
   border: 2px solid var(--input-border);
   color: var(--text-color);
   font-weight: 600;
   resize: vertical;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
   font-family: inherit;
+  box-sizing: border-box;
 }
 
 #reviewInput:focus {
@@ -429,6 +440,10 @@ body, html, .app-container {
   margin-bottom: 28px;
 }
 
+.review-input-group {
+  justify-content: flex-start;
+}
+
 input[type="file"] {
   flex-grow: 1;
   padding: 18px 24px;
@@ -439,6 +454,7 @@ input[type="file"] {
   font-weight: 600;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
   font-family: inherit;
+  box-sizing: border-box;
 }
 
 input[type="file"]:focus {
@@ -475,8 +491,9 @@ button, .btn-primary {
   user-select: none;
   transition: background-color 0.3s ease, transform 0.15s ease, box-shadow 0.3s ease;
   min-width: 150px;
-  box-shadow: 0 8px 28px rgba(0, 97, 255, 0.2);
+  box-shadow: 0 8px 28px rgba(0, 82, 204, 0.2);
   flex-shrink: 0;
+  box-sizing: border-box;
 }
 
 button:hover:not(:disabled),
@@ -485,7 +502,7 @@ button:focus:not(:disabled),
 .btn-primary:focus {
   background-color: var(--button-hover-bg);
   transform: translateY(-3px);
-  box-shadow: 0 14px 38px rgba(0, 70, 182, 0.35);
+  box-shadow: 0 14px 38px rgba(0, 61, 153, 0.35);
   outline: none;
 }
 
@@ -522,11 +539,11 @@ button:disabled {
 
 /* Admin Section */
 #admin-section p.admin-text {
-  font-size: 1.15rem;
-  line-height: 1.5;
-  margin-bottom: 28px;
+  font-size: 1.17rem;
+  line-height: 1.55;
+  margin-bottom: 32px;
   color: var(--text-color);
-  max-width: 600px;
+  max-width: 620px;
 }
 
 /* Modal styles */
@@ -546,6 +563,7 @@ button:disabled {
   transition: opacity 0.3s ease, transform 0.35s ease;
   z-index: 100;
   color: var(--text-color);
+  box-sizing: border-box;
 }
 
 .modal.open {
@@ -598,6 +616,7 @@ button:disabled {
   font-weight: 600;
   color: var(--text-color);
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  box-sizing: border-box;
 }
 
 .modal form input:focus {
@@ -616,6 +635,7 @@ button:disabled {
   border: none;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  box-sizing: border-box;
 }
 
 .modal form button:hover,
@@ -709,6 +729,6 @@ button:disabled {
   }
 
   #reviewInput {
-    height: 140px;
+    min-height: 140px;
   }
 }
