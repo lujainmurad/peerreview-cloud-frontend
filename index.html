@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Redirecting...</title>
   <script>
     const urlParams = new URLSearchParams(window.location.search);
@@ -9,8 +9,8 @@
 
     if (!hasAuthCode) {
       window.location.href =
-        "https://eu-north-1ztktij4uh.auth.eu-north-1.amazoncognito.com/login?client_id=4612i0a2sa5qdv7d0h67fht6ol&response_type=code&scope=email+openid&redirect_uri=https://lujainmurad.github.io/peerreview-cloud-frontend/
- }
+        "https://eu-north-1ztktij4h.auth.eu-north-1.amazoncognito.com/login?client_id=4612i0a2sa5qdv7d0h67fht6ol&response_type=code&scope=email+openid&redirect_uri=https://lujainmurad.github.io/peerreview-cloud-frontend/";
+    }
   </script>
 </head>
 <body style="font-family: sans-serif; padding: 2em;">
@@ -19,7 +19,7 @@
   <button onclick="uploadFile()">Upload</button>
   <p id="uploadStatus"></p>
 
-  <hr>
+  <hr />
 
   <h2>Download File</h2>
   <input type="text" id="fileNameDownload" placeholder="Enter file name (e.g., test.txt)" />
@@ -38,16 +38,20 @@
       }
 
       const file = fileInput.files[0];
-      const response = await fetch(`${apiUrl}?fileName=${file.name}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': file.type || 'text/plain',
-        },
-        body: file,
-      });
+      try {
+        const response = await fetch(`${apiUrl}?fileName=${file.name}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': file.type || 'text/plain',
+          },
+          body: file,
+        });
 
-      const result = await response.text();
-      status.textContent = response.ok ? 'File uploaded successfully!' : `Error: ${result}`;
+        const result = await response.text();
+        status.textContent = response.ok ? 'File uploaded successfully!' : `Error: ${result}`;
+      } catch (error) {
+        status.textContent = 'Upload failed: ' + error.message;
+      }
     }
 
     function downloadFile() {
