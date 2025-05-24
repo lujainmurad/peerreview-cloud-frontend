@@ -87,10 +87,9 @@ body, html, .app-container {
 .sidebar-top {
   display: flex;
   align-items: center;
-  gap: 18px;
-  justify-content: space-between;
-  margin-bottom: 44px;
+  gap: 14px;
   user-select: none;
+  margin-bottom: 44px;
 }
 
 .logo-link {
@@ -117,27 +116,6 @@ body, html, .app-container {
   height: 40px;
   margin: 0;
   display: block;
-}
-
-/* Sidebar toggle */
-.sidebar-toggle {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 6px;
-  color: var(--sidebar-text);
-  transition: transform 0.35s ease;
-  flex-shrink: 0;
-}
-
-.sidebar-toggle:hover,
-.sidebar-toggle:focus {
-  color: var(--primary-light);
-  outline: none;
-}
-
-.sidebar.closed .sidebar-toggle {
-  transform: rotate(180deg);
 }
 
 /* Navigation */
@@ -204,7 +182,7 @@ body, html, .app-container {
 .sidebar-bottom {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 20px;
   align-items: center;
 }
 
@@ -598,10 +576,6 @@ button:disabled {
 
   .sidebar-top {
     margin-bottom: 0;
-  }
-
-  .sidebar-toggle {
-    display: block;
   }
 
   .logo-link {
