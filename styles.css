@@ -7,42 +7,42 @@
 }
 
 :root {
-  /* Light mode colors */
-  --bg-color: #161618;
-  --text-color: #E9E9EB;
-  --primary-color: #06F;
-  --primary-dark: #0052CC;
-  --primary-light: #57a3ff;
-  --sidebar-bg: #0F1012;
-  --sidebar-text: #E9E9EB;
-  --button-bg: #06F;
-  --button-hover-bg: #0052CC;
-  --input-border: #06F;
-  --input-focus-border: #0052CC;
-  --modal-shadow: rgba(0, 102, 255, 0.7);
-  --success-color: #43D787;
-  --error-color: #F75A68;
-  --link-hover-bg: #0052CC;
-  --feature-tick-color: #06F;
+  /* Dropbox-inspired dark mode colors */
+  --bg-color: #f6f8fa; /* Light gray background for main */
+  --text-color: #24292f; /* Dark text */
+  --primary-color: #007ee5; /* Dropbox blue */
+  --primary-dark: #005ec2;
+  --primary-light: #85b8ff;
+  --sidebar-bg: #0d1117; /* Very dark background for sidebar */
+  --sidebar-text: #c9d1d9; /* Light gray text */
+  --button-bg: #007ee5;
+  --button-hover-bg: #005ec2;
+  --input-border: #c9d1d9;
+  --input-focus-border: #007ee5;
+  --modal-shadow: rgba(0, 126, 229, 0.25);
+  --success-color: #28a745;
+  --error-color: #d73a49;
+  --link-hover-bg: #005ec2;
+  --feature-tick-color: #007ee5;
 }
 
-[data-theme='light'] {
-  --bg-color: #F7F9FC;
-  --text-color: #0D1117;
-  --primary-color: #007EE5;
-  --primary-dark: #0052CC;
-  --primary-light: #a4c8ff;
-  --sidebar-bg: #007EE5;
-  --sidebar-text: white;
-  --button-bg: #007EE5;
-  --button-hover-bg: #0052CC;
-  --input-border: #007EE5;
-  --input-focus-border: #0052CC;
-  --modal-shadow: rgba(0, 126, 229, 0.35);
-  --success-color: #00A86B;
-  --error-color: #D92F2F;
-  --link-hover-bg: #0052CC;
-  --feature-tick-color: #007EE5;
+[data-theme='dark'] {
+  --bg-color: #0d1117;
+  --text-color: #c9d1d9;
+  --primary-color: #539bf5;
+  --primary-dark: #4076d9;
+  --primary-light: #85b8ff88;
+  --sidebar-bg: #161b22;
+  --sidebar-text: #c9d1d9;
+  --button-bg: #539bf5;
+  --button-hover-bg: #4076d9;
+  --input-border: #539bf5;
+  --input-focus-border: #4076d9;
+  --modal-shadow: rgba(83, 155, 245, 0.4);
+  --success-color: #28a745;
+  --error-color: #f85149;
+  --link-hover-bg: #4076d9;
+  --feature-tick-color: #539bf5;
 }
 
 body, html, .app-container {
@@ -66,9 +66,9 @@ body, html, .app-container {
   width: 280px;
   display: flex;
   flex-direction: column;
-  padding: 24px 16px 24px 20px;
+  padding: 24px 20px;
   color: var(--sidebar-text);
-  box-shadow: 3px 0 15px rgba(0,0,0,0.8);
+  box-shadow: 3px 0 15px rgba(0,0,0,0.85);
   transition: width 0.3s ease;
   z-index: 20;
   position: relative;
@@ -89,10 +89,10 @@ body, html, .app-container {
 .logo-link {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   color: var(--sidebar-text);
   font-weight: 700;
-  font-size: 1.6rem;
+  font-size: 1.7rem;
   user-select: text;
   white-space: nowrap;
   text-decoration: none;
@@ -105,8 +105,8 @@ body, html, .app-container {
 }
 
 .sidebar.closed .logo-link svg {
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
 }
 
 /* Sidebar toggle */
@@ -114,7 +114,7 @@ body, html, .app-container {
   background: none;
   border: none;
   cursor: pointer;
-  padding: 4px;
+  padding: 6px;
   color: var(--sidebar-text);
   transition: transform 0.3s ease;
 }
@@ -132,17 +132,17 @@ body, html, .app-container {
 /* User Profile in sidebar footer */
 .sidebar-footer {
   margin-top: auto;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   color: var(--sidebar-text);
   text-align: center;
   user-select: none;
   white-space: nowrap;
-  opacity: 0.7;
+  opacity: 0.8;
   display: flex;
   flex-direction: column;
   gap: 8px;
   align-items: center;
-  padding-top: 16px;
+  padding-top: 20px;
   border-top: 1px solid #222;
 }
 
@@ -155,7 +155,7 @@ body, html, .app-container {
   cursor: default;
   position: relative;
   font-weight: 600;
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   color: var(--sidebar-text);
 }
 
@@ -191,7 +191,7 @@ body, html, .app-container {
 }
 
 #userAvatar {
-  border-radius: 4px;
+  border-radius: 6px;
   image-rendering: pixelated;
   background: white;
 }
@@ -201,9 +201,9 @@ body, html, .app-container {
   background: transparent;
   color: var(--primary-color);
   border: 1.5px solid var(--primary-color);
-  padding: 10px 20px;
+  padding: 10px 22px;
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: 1rem;
   border-radius: 9999px;
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
@@ -218,7 +218,7 @@ body, html, .app-container {
 .login-btn:hover,
 .login-btn:focus {
   background: var(--primary-color);
-  color: var(--sidebar-text);
+  color: var(--sidebar-bg);
   border-color: var(--primary-color);
   outline: none;
 }
@@ -232,7 +232,7 @@ body, html, .app-container {
   margin: 12px auto 0;
   border: none;
   background: var(--primary-color);
-  color: var(--sidebar-text);
+  color: var(--sidebar-bg);
 }
 
 /* Navigation */
@@ -244,18 +244,18 @@ body, html, .app-container {
 }
 
 .nav-list li + li {
-  margin-top: 18px;
+  margin-top: 20px;
 }
 
 .nav-link {
   display: flex;
   align-items: center;
-  gap: 14px;
-  padding: 12px 18px;
+  gap: 16px;
+  padding: 12px 20px;
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 1.1rem;
   color: var(--sidebar-text);
-  border-radius: 12px;
+  border-radius: 14px;
   text-decoration: none;
   transition: background-color 0.25s ease, color 0.25s ease;
   user-select: none;
@@ -263,8 +263,8 @@ body, html, .app-container {
 }
 
 .nav-link svg.icon {
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
   stroke: currentColor;
   stroke-width: 2.5;
   fill: none;
@@ -274,7 +274,7 @@ body, html, .app-container {
 .nav-link:hover,
 .nav-link:focus {
   background-color: var(--primary-dark);
-  color: white;
+  color: var(--sidebar-bg);
   outline: none;
 }
 
@@ -317,30 +317,30 @@ body, html, .app-container {
 .hero h2 {
   font-size: 2.8rem;
   font-weight: 800;
-  margin-bottom: 16px;
+  margin-bottom: 18px;
   letter-spacing: 0.04em;
   color: var(--primary-color);
 }
 
 .hero p {
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   line-height: 1.6;
   color: var(--text-color);
-  margin-bottom: 24px;
+  margin-bottom: 26px;
 }
 
 .features-list {
   list-style: none;
-  color: var(--primary-light);
+  color: var(--primary-dark);
   font-weight: 600;
-  font-size: 1.1rem;
-  padding-left: 1.4em;
+  font-size: 1.15rem;
+  padding-left: 1.6em;
 }
 
 .features-list li {
-  margin-bottom: 12px;
+  margin-bottom: 14px;
   position: relative;
-  padding-left: 26px;
+  padding-left: 30px;
 }
 
 .features-list li::before {
@@ -350,26 +350,26 @@ body, html, .app-container {
   top: 0;
   color: var(--feature-tick-color);
   font-weight: 700;
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   user-select: none;
 }
 
 /* Action sections */
 .action-section {
-  background: var(--sidebar-bg);
-  border-radius: 14px;
-  padding: 28px 36px;
-  margin-bottom: 40px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  background: white;
+  border-radius: 16px;
+  padding: 36px 44px;
+  margin-bottom: 52px;
+  box-shadow: 0 10px 40px rgba(0, 126, 229, 0.15);
   max-width: 720px;
-  color: var(--sidebar-text);
+  color: var(--text-color);
 }
 
 .action-section h3 {
-  font-weight: 700;
-  font-size: 1.8rem;
+  font-weight: 800;
+  font-size: 2rem;
   color: var(--primary-color);
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 
 /* File lists */
@@ -381,16 +381,16 @@ body, html, .app-container {
 .file-list li {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 8px 12px;
-  border-radius: 10px;
+  gap: 14px;
+  padding: 12px 16px;
+  border-radius: 12px;
   cursor: pointer;
-  transition: background-color 0.25s ease;
+  transition: background-color 0.3s ease;
 }
 
 .file-list li:hover,
 .file-list li:focus {
-  background-color: var(--primary-dark);
+  background-color: var(--primary-light);
   color: var(--sidebar-bg);
   outline: none;
 }
@@ -404,18 +404,18 @@ body, html, .app-container {
 /* Input group */
 .input-group {
   display: flex;
-  gap: 16px;
+  gap: 20px;
   flex-wrap: nowrap;
   align-items: center;
-  margin-bottom: 16px;
+  margin-bottom: 24px;
 }
 
 input[type="file"],
 textarea {
   flex-grow: 1;
-  padding: 14px 20px;
-  font-size: 1.1rem;
-  border-radius: 10px;
+  padding: 18px 22px;
+  font-size: 1.15rem;
+  border-radius: 14px;
   border: 2px solid var(--input-border);
   color: var(--text-color);
   font-weight: 600;
@@ -428,13 +428,13 @@ input[type="file"]:focus,
 textarea:focus {
   outline: none;
   border-color: var(--input-focus-border);
-  box-shadow: 0 0 14px var(--input-focus-border)aa;
+  box-shadow: 0 0 18px var(--input-focus-border)aa;
 }
 
 input[type="file"]::-webkit-file-upload-button {
   cursor: pointer;
-  padding: 8px 16px;
-  border-radius: 8px;
+  padding: 10px 18px;
+  border-radius: 12px;
   background: var(--primary-color);
   color: white;
   font-weight: 600;
@@ -448,18 +448,18 @@ input[type="file"]::-webkit-file-upload-button:hover {
 }
 
 button, .btn-primary {
-  padding: 14px 34px;
+  padding: 16px 44px;
   background: var(--button-bg);
   color: white;
   border: none;
-  border-radius: 12px;
-  font-size: 1.1rem;
+  border-radius: 14px;
+  font-size: 1.15rem;
   font-weight: 700;
   cursor: pointer;
   user-select: none;
   transition: background-color 0.3s ease, transform 0.15s ease, box-shadow 0.3s ease;
-  min-width: 130px;
-  box-shadow: 0 6px 14px rgba(0, 102, 255, 0.7);
+  min-width: 140px;
+  box-shadow: 0 6px 20px rgba(0, 126, 229, 0.25);
   flex-shrink: 0;
 }
 
@@ -468,8 +468,8 @@ button:focus:not(:disabled),
 .btn-primary:hover,
 .btn-primary:focus {
   background-color: var(--button-hover-bg);
-  transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(0, 82, 204, 0.85);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(0, 82, 204, 0.4);
   outline: none;
 }
 
@@ -481,10 +481,10 @@ button:disabled {
 }
 
 .status-message {
-  margin-top: 18px;
+  margin-top: 22px;
   font-weight: 600;
-  font-size: 1.05rem;
-  min-height: 26px;
+  font-size: 1.1rem;
+  min-height: 28px;
   opacity: 0;
   transition: opacity 0.5s ease;
   user-select: text;
@@ -510,17 +510,17 @@ button:disabled {
   top: 50%;
   left: 50%;
   width: 90%;
-  max-width: 400px;
-  background: var(--sidebar-bg);
-  border-radius: 16px;
-  padding: 32px 28px 24px;
-  box-shadow: 0 24px 48px var(--modal-shadow);
+  max-width: 420px;
+  background: white;
+  border-radius: 20px;
+  padding: 38px 36px 30px;
+  box-shadow: 0 30px 60px var(--modal-shadow);
   transform: translate(-50%, -50%) scale(0.8);
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.25s ease, transform 0.3s ease;
+  transition: opacity 0.3s ease, transform 0.35s ease;
   z-index: 100;
-  color: var(--sidebar-text);
+  color: var(--text-color);
 }
 
 .modal.open {
@@ -530,19 +530,19 @@ button:disabled {
 }
 
 .modal h2 {
-  margin-bottom: 24px;
+  margin-bottom: 30px;
   color: var(--primary-color);
-  font-weight: 700;
-  font-size: 1.8rem;
+  font-weight: 800;
+  font-size: 2rem;
 }
 
 .modal-close {
   position: absolute;
-  top: 14px;
-  right: 14px;
+  top: 18px;
+  right: 18px;
   background: none;
   border: none;
-  font-size: 1.8rem;
+  font-size: 2.2rem;
   color: var(--primary-color);
   cursor: pointer;
   user-select: none;
@@ -557,17 +557,17 @@ button:disabled {
 
 .modal form label {
   display: block;
-  font-weight: 600;
-  margin-bottom: 6px;
+  font-weight: 700;
+  margin-bottom: 8px;
   color: var(--primary-dark);
 }
 
 .modal form input {
   width: 100%;
-  margin-bottom: 18px;
-  padding: 10px 12px;
-  font-size: 1rem;
-  border-radius: 10px;
+  margin-bottom: 22px;
+  padding: 14px 16px;
+  font-size: 1.1rem;
+  border-radius: 14px;
   border: 2px solid var(--primary-light);
   font-family: inherit;
   font-weight: 600;
@@ -578,16 +578,16 @@ button:disabled {
 .modal form input:focus {
   outline: none;
   border-color: var(--primary-color);
-  box-shadow: 0 0 14px var(--primary-color)aa;
+  box-shadow: 0 0 18px var(--primary-color)aa;
 }
 
 .modal form button {
   width: 100%;
-  padding: 14px;
+  padding: 16px;
   background-color: var(--button-bg);
   color: white;
   font-weight: 700;
-  border-radius: 12px;
+  border-radius: 14px;
   border: none;
   cursor: pointer;
   transition: background-color 0.3s ease;
@@ -603,10 +603,10 @@ button:disabled {
 .modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.4);
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.25s ease;
+  transition: opacity 0.3s ease;
   z-index: 99;
 }
 
@@ -627,7 +627,7 @@ button:disabled {
     flex-direction: row;
     align-items: center;
     padding: 0 20px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
     position: relative;
     transition: none;
     overflow: visible;
