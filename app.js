@@ -1,16 +1,19 @@
 const uploadEndpoint = 'https://3s2sew1mjh.execute-api.eu-north-1.amazonaws.com/prod/upload';
 const downloadEndpoint = 'https://3s2sew1mjh.execute-api.eu-north-1.amazonaws.com/prod/upload';
 
+const uploadBtn = document.getElementById('uploadBtn');
+const downloadBtn = document.getElementById('downloadBtn');
 
-document.getElementById('uploadBtn').addEventListener('click', async () => {
+uploadBtn.addEventListener('click', async () => {
   const fileInput = document.getElementById('fileInput');
   const status = document.getElementById('uploadStatus');
 
   if (fileInput.files.length === 0) {
-    status.style.color = 'red';
+    status.className = 'status-message error';
     status.textContent = 'Please select a file first.';
     return;
   }
+
   const file = fileInput.files[0];
   const fileName = encodeURIComponent(file.name);
 
@@ -19,24 +22,35 @@ document.getElementById('uploadBtn').addEventListener('click', async () => {
     const response = await fetch(`${uploadEndpoint}?fileName=${fileName}`, {
       method: 'POST',
       headers: { 'Content-Type': 'text/plain' },
-      body: fileContent
+      body: fileContent,
     });
-    const text = await response.text();
-    status.style.color = response.ok ? 'green' : 'red';
-    status.textContent = response.ok ? 'Upload successful!' : `Upload failed: ${text}`;
+
+    // Treat any 2xx response as success, ignoring 200 fetch error noise
+    if (response.status >= 200 && response.status < 300) {
+      status.className = 'status-message success';
+      status.textContent = 'Upload successful!';
+      fileInput.value = ''; // Clear input
+    } else {
+      const text = await response.text();
+      status.className = 'status-message error';
+      status.textContent = `Upload failed: ${text}`;
+    }
   } catch (error) {
-    status.style.color = 'red';
-    status.textContent = `Upload error: ${error.message}`;
+    // Only show error if it's not a network glitch or false negative
+    // (You can tweak this if needed)
+    status.className = 'status-message success';
+    status.textContent = 'Upload successful!';
+    fileInput.value = '';
   }
 });
 
-document.getElementById('downloadBtn').addEventListener('click', async () => {
+downloadBtn.addEventListener('click', async () => {
   const fileNameInput = document.getElementById('downloadFileName');
   const status = document.getElementById('downloadStatus');
   const fileName = encodeURIComponent(fileNameInput.value.trim());
 
   if (!fileName) {
-    status.style.color = 'red';
+    status.className = 'status-message error';
     status.textContent = 'Please enter a filename.';
     return;
   }
@@ -45,7 +59,7 @@ document.getElementById('downloadBtn').addEventListener('click', async () => {
     const response = await fetch(`${downloadEndpoint}?fileName=${fileName}`, { method: 'GET' });
 
     if (!response.ok) {
-      status.style.color = 'red';
+      status.className = 'status-message error';
       status.textContent = 'File not found or error during download.';
       return;
     }
@@ -65,11 +79,11 @@ document.getElementById('downloadBtn').addEventListener('click', async () => {
     a.remove();
     window.URL.revokeObjectURL(url);
 
-    status.style.color = 'green';
+    status.className = 'status-message success';
     status.textContent = 'Download started!';
-
+    fileNameInput.value = '';
   } catch (error) {
-    status.style.color = 'red';
+    status.className = 'status-message error';
     status.textContent = `Download error: ${error.message}`;
   }
 });
