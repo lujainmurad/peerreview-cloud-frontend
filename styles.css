@@ -1,0 +1,31 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 30px;
+  max-width: 600px;
+}
+
+h1, h2 {
+  color: #333;
+}
+
+section {
+  margin-bottom: 40px;
+}
+
+input[type="file"], input[type="text"] {
+  padding: 8px;
+  font-size: 1em;
+  margin-right: 10px;
+}
+
+button {
+  padding: 8px 12px;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+#uploadStatus, #downloadStatus {
+  margin-top: 10px;
+  font-weight: bold;
+  color: green;
+}
