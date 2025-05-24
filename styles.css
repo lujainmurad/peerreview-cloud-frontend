@@ -6,29 +6,68 @@
   user-select: none;
 }
 
+:root {
+  /* Light mode colors */
+  --bg-color: #F7F9FC;
+  --text-color: #0D1117;
+  --primary-color: #007EE5;
+  --primary-dark: #0052CC;
+  --primary-light: #a4c8ff;
+  --sidebar-bg: #007EE5;
+  --sidebar-text: white;
+  --button-bg: #007EE5;
+  --button-hover-bg: #0052CC;
+  --input-border: #007EE5;
+  --input-focus-border: #0052CC;
+  --modal-shadow: rgba(0, 126, 229, 0.35);
+  --success-color: #00A86B;
+  --error-color: #D92F2F;
+  --link-hover-bg: #0052CC;
+  --feature-tick-color: #007EE5;
+}
+
+[data-theme='dark'] {
+  --bg-color: #0D1117;
+  --text-color: #C9D1D9;
+  --primary-color: #58A6FF;
+  --primary-dark: #1F6FEB;
+  --primary-light: #1F6FEB99;
+  --sidebar-bg: #161B22;
+  --sidebar-text: #C9D1D9;
+  --button-bg: #2381FF;
+  --button-hover-bg: #1F6FEB;
+  --input-border: #58A6FF;
+  --input-focus-border: #1F6FEB;
+  --modal-shadow: rgba(35, 129, 255, 0.7);
+  --success-color: #56D364;
+  --error-color: #F85149;
+  --link-hover-bg: #1F6FEB;
+  --feature-tick-color: #2381FF;
+}
+
 body, html, .app-container {
   height: 100%;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  background: #F7F9FC;
-  color: #0D1117;
+  background: var(--bg-color);
+  color: var(--text-color);
 }
 
 .app-container {
   display: flex;
   min-height: 100vh;
   overflow: hidden;
-  background: #F7F9FC;
+  background: var(--bg-color);
 }
 
 /* Sidebar */
 .sidebar {
-  background: #007EE5;
+  background: var(--sidebar-bg);
   width: 260px;
   display: flex;
   flex-direction: column;
   padding: 24px 20px;
-  color: white;
+  color: var(--sidebar-text);
   box-shadow: 3px 0 15px rgba(0,0,0,0.12);
   transition: width 0.3s ease;
   z-index: 20;
@@ -50,7 +89,7 @@ body, html, .app-container {
 .logo {
   font-weight: 800;
   font-size: 1.8rem;
-  color: white;
+  color: var(--sidebar-text);
   white-space: nowrap;
   user-select: text;
   transition: opacity 0.3s ease;
@@ -61,18 +100,19 @@ body, html, .app-container {
   pointer-events: none;
 }
 
+/* Sidebar toggle */
 .sidebar-toggle {
   background: none;
   border: none;
   cursor: pointer;
   padding: 4px;
-  color: white;
+  color: var(--sidebar-text);
   transition: transform 0.3s ease;
 }
 
 .sidebar-toggle:hover,
 .sidebar-toggle:focus {
-  color: #b3d4ff;
+  color: var(--primary-light);
   outline: none;
 }
 
@@ -80,9 +120,75 @@ body, html, .app-container {
   transform: rotate(180deg);
 }
 
+/* User Profile in sidebar footer */
+.sidebar-footer {
+  margin-top: 40px;
+  font-size: 0.85rem;
+  color: var(--sidebar-text);
+  text-align: center;
+  user-select: none;
+  white-space: nowrap;
+  opacity: 0.7;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  justify-content: center;
+  cursor: default;
+  position: relative;
+}
+
+.username-text {
+  color: var(--sidebar-text);
+  font-weight: 600;
+  font-size: 1rem;
+  user-select: text;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 120px;
+}
+
+#logoutBtn {
+  position: absolute;
+  right: 0;
+  top: 0;
+  border: none;
+  background: transparent;
+  color: var(--sidebar-text);
+  font-weight: 700;
+  font-size: 1.5rem;
+  cursor: pointer;
+  user-select: none;
+  opacity: 0.8;
+  padding: 0;
+  line-height: 1;
+  transition: opacity 0.3s ease;
+}
+
+#logoutBtn:hover,
+#logoutBtn:focus {
+  opacity: 1;
+  outline: none;
+}
+
+#userAvatar {
+  border-radius: 4px;
+  image-rendering: pixelated;
+  background: white;
+}
+
+/* Login button */
 .login-btn {
   background: white;
-  color: #007EE5;
+  color: var(--primary-color);
   border: none;
   padding: 10px 14px;
   font-weight: 600;
@@ -91,7 +197,7 @@ body, html, .app-container {
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease;
   user-select: none;
-  margin-top: auto;
+  margin-top: 10px;
   white-space: nowrap;
   max-width: 100%;
   overflow: hidden;
@@ -100,7 +206,7 @@ body, html, .app-container {
 
 .login-btn:hover,
 .login-btn:focus {
-  background: #0052CC;
+  background: var(--primary-dark);
   color: white;
   outline: none;
 }
@@ -133,7 +239,7 @@ body, html, .app-container {
   padding: 10px 14px;
   font-weight: 600;
   font-size: 1rem;
-  color: white;
+  color: var(--sidebar-text);
   border-radius: 10px;
   text-decoration: none;
   transition: background-color 0.3s ease, color 0.3s ease;
@@ -152,7 +258,7 @@ body, html, .app-container {
 
 .nav-link:hover,
 .nav-link:focus {
-  background-color: #0052CC;
+  background-color: var(--primary-dark);
   color: white;
   outline: none;
 }
@@ -160,7 +266,7 @@ body, html, .app-container {
 .nav-link.active,
 .nav-link[aria-current="page"] {
   background-color: white;
-  color: #007EE5;
+  color: var(--primary-color);
   cursor: default;
 }
 
@@ -173,29 +279,13 @@ body, html, .app-container {
   padding: 10px 0;
 }
 
-/* Sidebar footer */
-.sidebar-footer {
-  margin-top: 40px;
-  font-size: 0.85rem;
-  color: #cce3ff;
-  text-align: center;
-  user-select: none;
-  white-space: nowrap;
-  opacity: 0.7;
-}
-
-.sidebar.closed .sidebar-footer {
-  opacity: 0;
-  pointer-events: none;
-}
-
 /* Main content */
 .main-content {
   flex-grow: 1;
   padding: 40px 48px;
   overflow-y: auto;
-  background: #F7F9FC;
-  color: #0D1117;
+  background: var(--bg-color);
+  color: var(--text-color);
   display: flex;
   flex-direction: column;
   outline: none;
@@ -213,20 +303,20 @@ body, html, .app-container {
   margin-bottom: 16px;
   letter-spacing: 0.04em;
   user-select: text;
-  color: #007EE5;
+  color: var(--primary-color);
 }
 
 .hero p {
   font-size: 1.25rem;
   line-height: 1.6;
-  color: #24292E;
+  color: var(--text-color);
   margin-bottom: 24px;
   user-select: text;
 }
 
 .features-list {
   list-style: none;
-  color: #0550AE;
+  color: var(--primary-dark);
   font-weight: 600;
   font-size: 1.1rem;
   padding-left: 1.4em;
@@ -244,7 +334,7 @@ body, html, .app-container {
   position: absolute;
   left: 0;
   top: 0;
-  color: #007EE5;
+  color: var(--feature-tick-color);
   font-weight: 700;
   font-size: 1.3rem;
   user-select: none;
@@ -263,7 +353,7 @@ body, html, .app-container {
 .action-section h3 {
   font-weight: 700;
   font-size: 1.8rem;
-  color: #007EE5;
+  color: var(--primary-color);
   margin-bottom: 20px;
   user-select: text;
 }
@@ -283,8 +373,8 @@ textarea {
   padding: 14px 20px;
   font-size: 1.1rem;
   border-radius: 10px;
-  border: 2px solid #007EE5;
-  color: #0D1117;
+  border: 2px solid var(--input-border);
+  color: var(--text-color);
   font-weight: 600;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
   font-family: inherit;
@@ -295,15 +385,15 @@ input[type="file"]:focus,
 input[type="text"]:focus,
 textarea:focus {
   outline: none;
-  border-color: #0052CC;
-  box-shadow: 0 0 14px #0052CCaa;
+  border-color: var(--input-focus-border);
+  box-shadow: 0 0 14px var(--input-focus-border)aa;
 }
 
 input[type="file"]::-webkit-file-upload-button {
   cursor: pointer;
   padding: 8px 16px;
   border-radius: 8px;
-  background: #007EE5;
+  background: var(--primary-color);
   color: white;
   font-weight: 600;
   border: none;
@@ -312,12 +402,12 @@ input[type="file"]::-webkit-file-upload-button {
 }
 
 input[type="file"]::-webkit-file-upload-button:hover {
-  background: #0052CC;
+  background: var(--primary-dark);
 }
 
 button, .btn-primary {
   padding: 14px 34px;
-  background: #007EE5;
+  background: var(--button-bg);
   color: white;
   border: none;
   border-radius: 12px;
@@ -335,14 +425,14 @@ button:hover:not(:disabled),
 button:focus:not(:disabled),
 .btn-primary:hover,
 .btn-primary:focus {
-  background-color: #0052CC;
+  background-color: var(--button-hover-bg);
   transform: translateY(-2px);
   box-shadow: 0 10px 20px rgba(0, 82, 204, 0.85);
   outline: none;
 }
 
 button:disabled {
-  background-color: #a4c8ff;
+  background-color: var(--primary-light);
   cursor: not-allowed;
   box-shadow: none;
   transform: none;
@@ -365,11 +455,11 @@ button:disabled {
 }
 
 .status-message.success {
-  color: #00A86B; /* green */
+  color: var(--success-color);
 }
 
 .status-message.error {
-  color: #D92F2F; /* red */
+  color: var(--error-color);
 }
 
 /* Modal styles */
@@ -382,7 +472,7 @@ button:disabled {
   background: white;
   border-radius: 16px;
   padding: 32px 28px 24px;
-  box-shadow: 0 24px 48px rgba(0, 126, 229, 0.35);
+  box-shadow: 0 24px 48px var(--modal-shadow);
   transform: translate(-50%, -50%) scale(0.8);
   opacity: 0;
   pointer-events: none;
@@ -398,7 +488,7 @@ button:disabled {
 
 .modal h2 {
   margin-bottom: 24px;
-  color: #007EE5;
+  color: var(--primary-color);
   font-weight: 700;
   font-size: 1.8rem;
 }
@@ -410,7 +500,7 @@ button:disabled {
   background: none;
   border: none;
   font-size: 1.8rem;
-  color: #007EE5;
+  color: var(--primary-color);
   cursor: pointer;
   user-select: none;
   transition: color 0.3s ease;
@@ -418,7 +508,7 @@ button:disabled {
 
 .modal-close:hover,
 .modal-close:focus {
-  color: #0052CC;
+  color: var(--primary-dark);
   outline: none;
 }
 
@@ -426,7 +516,7 @@ button:disabled {
   display: block;
   font-weight: 600;
   margin-bottom: 6px;
-  color: #0052CC;
+  color: var(--primary-dark);
 }
 
 .modal form input {
@@ -435,23 +525,23 @@ button:disabled {
   padding: 10px 12px;
   font-size: 1rem;
   border-radius: 10px;
-  border: 2px solid #a4c8ff;
+  border: 2px solid var(--primary-light);
   font-family: inherit;
   font-weight: 600;
-  color: #0D1117;
+  color: var(--text-color);
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .modal form input:focus {
   outline: none;
-  border-color: #007EE5;
-  box-shadow: 0 0 14px #007EE5aa;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 14px var(--primary-color)aa;
 }
 
 .modal form button {
   width: 100%;
   padding: 14px;
-  background-color: #007EE5;
+  background-color: var(--button-bg);
   color: white;
   font-weight: 700;
   border-radius: 12px;
@@ -462,7 +552,7 @@ button:disabled {
 
 .modal form button:hover,
 .modal form button:focus {
-  background-color: #0052CC;
+  background-color: var(--button-hover-bg);
   outline: none;
 }
 
@@ -529,7 +619,7 @@ button:disabled {
     top: 56px;
     left: 0;
     width: 100%;
-    background: #007EE5;
+    background: var(--primary-color);
     padding: 12px 0;
     border-radius: 0 0 12px 12px;
     box-shadow: 0 8px 16px rgba(0,82,204,0.85);
