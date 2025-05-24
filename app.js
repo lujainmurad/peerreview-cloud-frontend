@@ -2,13 +2,11 @@ const uploadEndpoint = 'https://3s2sew1mjh.execute-api.eu-north-1.amazonaws.com/
 
 const uploadBtn = document.getElementById('uploadBtn');
 const fileInput = document.getElementById('fileInput');
-const uploadForm = document.getElementById('uploadForm');
 
 const reviewInput = document.getElementById('reviewInput');
 const reviewFile = document.getElementById('reviewFile');
 const submitReviewBtn = document.getElementById('submitReviewBtn');
 const reviewStatus = document.getElementById('reviewStatus');
-const reviewForm = document.getElementById('reviewForm');
 
 const uploadStatus = document.getElementById('uploadStatus');
 
@@ -23,15 +21,6 @@ const sidebar = document.getElementById('sidebar');
 const sidebarToggle = document.getElementById('sidebarToggle');
 const navList = document.getElementById('navList');
 const navLinks = document.querySelectorAll('.nav-link');
-
-const userProfile = document.getElementById('userProfile');
-const userAvatar = document.getElementById('userAvatar');
-const usernameDisplay = document.getElementById('usernameDisplay');
-const logoutBtn = document.getElementById('logoutBtn');
-
-const profileModal = document.getElementById('profileModal');
-const closeProfileBtn = document.getElementById('closeProfileBtn');
-const profileCloseBtn = document.getElementById('profileCloseBtn');
 
 /* STATUS MESSAGE HELPERS */
 function showStatus(element, message, type = 'success') {
@@ -146,44 +135,6 @@ submitReviewBtn.addEventListener('click', async () => {
   }
 });
 
-/* Drag & Drop handlers for Upload */
-uploadForm.addEventListener('dragover', e => {
-  e.preventDefault();
-  uploadForm.classList.add('dragover');
-});
-
-uploadForm.addEventListener('dragleave', e => {
-  e.preventDefault();
-  uploadForm.classList.remove('dragover');
-});
-
-uploadForm.addEventListener('drop', e => {
-  e.preventDefault();
-  uploadForm.classList.remove('dragover');
-  if (e.dataTransfer.files.length) {
-    fileInput.files = e.dataTransfer.files;
-  }
-});
-
-/* Drag & Drop handlers for Review */
-reviewForm.addEventListener('dragover', e => {
-  e.preventDefault();
-  reviewForm.classList.add('dragover');
-});
-
-reviewForm.addEventListener('dragleave', e => {
-  e.preventDefault();
-  reviewForm.classList.remove('dragover');
-});
-
-reviewForm.addEventListener('drop', e => {
-  e.preventDefault();
-  reviewForm.classList.remove('dragover');
-  if (e.dataTransfer.files.length) {
-    reviewFile.files = e.dataTransfer.files;
-  }
-});
-
 /* LOGIN MODAL HANDLERS */
 loginBtn.addEventListener('click', openLoginModal);
 closeLoginBtn.addEventListener('click', closeLoginModal);
@@ -246,41 +197,16 @@ function closeLoginModal() {
   loginBtn.focus();
 }
 
-/* PROFILE MODAL HANDLERS */
-userProfile.addEventListener('click', () => {
-  if (!logoutBtn.hidden) return; // logged in - do nothing for now
-  openProfileModal();
-});
-userProfile.addEventListener('keypress', e => {
-  if (e.key === 'Enter' || e.key === ' ') {
-    e.preventDefault();
-    if (!logoutBtn.hidden) return;
-    openProfileModal();
-  }
-});
-closeProfileBtn.addEventListener('click', closeProfileModal);
-profileCloseBtn.addEventListener('click', closeProfileModal);
-
-function openProfileModal() {
-  profileModal.classList.add('open');
-  modalBackdrop.classList.add('visible');
-  profileModal.removeAttribute('aria-hidden');
-  profileModal.focus();
-}
-
-function closeProfileModal() {
-  profileModal.classList.remove('open');
-  modalBackdrop.classList.remove('visible');
-  profileModal.setAttribute('aria-hidden', 'true');
-  userProfile.focus();
-}
-
 /* SIDEBAR TOGGLE */
 sidebarToggle.addEventListener('click', () => {
   const isClosed = sidebar.classList.toggle('closed');
   sidebarToggle.setAttribute('aria-expanded', !isClosed);
-  if (window.innerWidth <= 768) {
-    navList.classList.toggle('open', !isClosed);
+
+  // Hide login button if sidebar closed, show if opened
+  if (isClosed) {
+    loginBtn.style.display = 'none';
+  } else {
+    loginBtn.style.display = 'inline-block';
   }
 });
 
@@ -289,122 +215,13 @@ navLinks.forEach(link => {
   link.addEventListener('click', e => {
     navLinks.forEach(l => l.classList.remove('active'));
     e.currentTarget.classList.add('active');
-    if (window.innerWidth <= 768) {
-      sidebar.classList.add('closed');
-      sidebarToggle.setAttribute('aria-expanded', 'false');
-      navList.classList.remove('open');
-    }
   });
-});
-
-/* USER PROFILE & AVATAR GENERATION (Pixelated Identicon) */
-function setUser(username) {
-  localStorage.setItem('pr_username', username);
-  updateUserProfile();
-}
-
-function clearUser() {
-  localStorage.removeItem('pr_username');
-  updateUserProfile();
-}
-
-function updateUserProfile() {
-  const username = localStorage.getItem('pr_username');
-  const isLoggedIn = !!username;
-
-  usernameDisplay.textContent = isLoggedIn ? username : 'Guest';
-  loginBtn.hidden = isLoggedIn;
-  logoutBtn.hidden = !isLoggedIn;
-
-  if (isLoggedIn) {
-    generateIdenticon(username, userAvatar);
-    userProfile.setAttribute('tabindex', '0');
-  } else {
-    clearCanvas(userAvatar);
-    userProfile.removeAttribute('tabindex');
-  }
-}
-
-logoutBtn.addEventListener('click', () => {
-  clearUser();
-});
-
-/* Generate identicon */
-function generateIdenticon(name, canvas) {
-  const ctx = canvas.getContext('2d');
-  const size = canvas.width;
-  const block = size / 5;
-
-  ctx.clearRect(0, 0, size, size);
-
-  let hash = 5381;
-  for (let i = 0; i < name.length; i++) {
-    hash = ((hash << 5) + hash) + name.charCodeAt(i);
-  }
-
-  // Colors based on theme
-  const bgColor = getComputedStyle(document.documentElement).getPropertyValue('--sidebar-bg').trim() || '#111820';
-  const fgColor = getComputedStyle(document.documentElement).getPropertyValue('--primary-color').trim() || '#0052cc';
-
-  ctx.fillStyle = bgColor;
-  ctx.fillRect(0, 0, size, size);
-
-  ctx.fillStyle = fgColor;
-
-  for (let x = 0; x < 3; x++) {
-    for (let y = 0; y < 5; y++) {
-      const i = x * 5 + y;
-      const bit = (hash >> i) & 1;
-
-      if (bit === 1) {
-        ctx.fillRect(x * block, y * block, block, block);
-        ctx.fillRect((4 - x) * block, y * block, block, block);
-      }
-    }
-  }
-}
-
-function clearCanvas(canvas) {
-  const ctx = canvas.getContext('2d');
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-}
-
-/* THEME TOGGLE */
-const themeToggle = document.getElementById('themeToggle');
-const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-function loadTheme() {
-  let theme = localStorage.getItem('pr_theme');
-  if (!theme) {
-    theme = prefersDark ? 'dark' : 'light';
-  }
-  applyTheme(theme);
-}
-
-function applyTheme(theme) {
-  if (theme === 'dark') {
-    document.documentElement.setAttribute('data-theme', 'dark');
-    themeToggle.textContent = '☀️';
-    themeToggle.setAttribute('aria-label', 'Switch to light mode');
-  } else {
-    document.documentElement.setAttribute('data-theme', 'light');
-    themeToggle.textContent = '🌙';
-    themeToggle.setAttribute('aria-label', 'Switch to dark mode');
-  }
-  localStorage.setItem('pr_theme', theme);
-}
-
-themeToggle.addEventListener('click', () => {
-  const current = document.documentElement.getAttribute('data-theme');
-  if (current === 'dark') {
-    applyTheme('light');
-  } else {
-    applyTheme('dark');
-  }
 });
 
 /* Initialize */
 window.addEventListener('DOMContentLoaded', () => {
-  loadTheme();
-  updateUserProfile();
+  // On load, if sidebar is closed hide login button
+  if (sidebar.classList.contains('closed')) {
+    loginBtn.style.display = 'none';
+  }
 });
