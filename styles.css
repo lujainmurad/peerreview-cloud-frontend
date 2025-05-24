@@ -184,6 +184,7 @@ body, html, .app-container {
   flex-direction: column;
   gap: 20px;
   align-items: center;
+  position: relative;
 }
 
 /* Login button */
@@ -225,6 +226,7 @@ body, html, .app-container {
   width: 48px;
   height: 26px;
   user-select: none;
+  align-self: center;
 }
 
 .theme-switch input {
@@ -264,6 +266,21 @@ body, html, .app-container {
 
 .theme-switch input:checked + .slider::before {
   transform: translateX(22px);
+}
+
+/* Sidebar toggle icon (not a button) */
+.sidebar-toggle {
+  cursor: pointer;
+  color: var(--sidebar-text);
+  transition: color 0.25s ease;
+  user-select: none;
+  padding: 10px 0 2px 0;
+}
+
+.sidebar-toggle:hover,
+.sidebar-toggle:focus {
+  color: var(--primary-light);
+  outline: none;
 }
 
 /* Main content */
