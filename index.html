@@ -28,19 +28,19 @@
     <section id="upload-section" class="action-section">
       <h2>Upload Paper</h2>
       <div class="input-group">
-        <input type="file" id="fileInput" />
-        <button id="uploadBtn">Upload</button>
+        <input type="file" id="fileInput" aria-label="Select a paper file to upload" />
+        <button id="uploadBtn" aria-live="polite">Upload</button>
       </div>
-      <p id="uploadStatus" class="status-message"></p>
+      <p id="uploadStatus" class="status-message" role="alert" aria-atomic="true"></p>
     </section>
 
     <section id="download-section" class="action-section">
       <h2>Download Paper</h2>
       <div class="input-group">
-        <input type="text" id="downloadFileName" placeholder="Enter filename" />
-        <button id="downloadBtn">Download</button>
+        <input type="text" id="downloadFileName" placeholder="Enter filename" aria-label="Enter filename to download" />
+        <button id="downloadBtn" aria-live="polite">Download</button>
       </div>
-      <p id="downloadStatus" class="status-message"></p>
+      <p id="downloadStatus" class="status-message" role="alert" aria-atomic="true"></p>
     </section>
   </main>
 
