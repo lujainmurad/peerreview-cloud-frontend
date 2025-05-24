@@ -20,10 +20,9 @@
         </button>
 
         <a href="#" class="logo-link" aria-label="PeerReview Home">
-          <svg id="peerReviewIcon" width="32" height="32" viewBox="0 0 120 120" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" fill="none">
-            <rect x="30" y="15" width="60" height="60" fill="#007EE5" rx="12" ry="12"/>
-            <rect x="45" y="45" width="30" height="45" fill="#004A99" rx="6" ry="6"/>
-            <rect x="30" y="80" width="60" height="25" fill="#004A99" rx="12" ry="12"/>
+          <svg id="peerReviewIcon" width="36" height="36" viewBox="0 0 120 120" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" fill="none">
+            <polygon fill="#007EE5" points="60,15 90,45 60,75 30,45"/>
+            <polygon fill="#004A99" points="60,75 90,45 90,90 60,120 30,90 30,45"/>
           </svg>
           <span class="logo-text">PeerReview</span>
         </a>
@@ -31,15 +30,9 @@
 
       <ul class="nav-list" role="menu">
         <li role="none">
-          <a href="#" role="menuitem" class="nav-link active" aria-current="page" tabindex="0">
+          <a href="#all-files-section" role="menuitem" class="nav-link active" aria-current="page" tabindex="0">
             <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M3 9L12 2l9 7v11a2 2 0 0 1-2 2h-4v-7H9v7H5a2 2 0 0 1-2-2z"/></svg>
             <span>All files</span>
-          </a>
-        </li>
-        <li role="none">
-          <a href="#recent-files-section" role="menuitem" class="nav-link" tabindex="-1">
-            <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M3 12h18M12 3v18"/></svg>
-            <span>Recents</span>
           </a>
         </li>
         <li role="none">
@@ -65,7 +58,7 @@
       <div class="sidebar-footer">
         <div class="user-profile" id="userProfile" tabindex="0" aria-label="User profile">
           <canvas id="userAvatar" width="40" height="40" aria-hidden="true"></canvas>
-          <span id="usernameDisplay" class="username-text"></span>
+          <span id="usernameDisplay" class="username-text">Guest</span>
           <button id="logoutBtn" title="Logout" aria-label="Logout" hidden>&times;</button>
         </div>
         <button class="login-btn" id="loginBtn" aria-haspopup="dialog" aria-controls="loginModal" aria-expanded="false" title="User Login">
@@ -110,13 +103,6 @@
           <button id="submitReviewBtn">Submit Review</button>
         </div>
         <p id="reviewStatus" class="status-message" role="alert" aria-atomic="true"></p>
-      </section>
-
-      <section id="recent-files-section" class="action-section" tabindex="-1" aria-label="Recent Files">
-        <h3>Recent Files</h3>
-        <ul id="recentFilesList" class="file-list" aria-live="polite" aria-atomic="true">
-          <!-- Recent files will be dynamically inserted here -->
-        </ul>
       </section>
 
       <section id="all-files-section" class="action-section" tabindex="-1" aria-label="All Files">
