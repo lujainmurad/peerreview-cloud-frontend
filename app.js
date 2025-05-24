@@ -1,10 +1,7 @@
 const uploadEndpoint = 'https://3s2sew1mjh.execute-api.eu-north-1.amazonaws.com/prod/upload';
-const downloadEndpoint = 'https://3s2sew1mjh.execute-api.eu-north-1.amazonaws.com/prod/upload';
 
 const uploadBtn = document.getElementById('uploadBtn');
-const downloadBtn = document.getElementById('downloadBtn');
 const fileInput = document.getElementById('fileInput');
-const downloadInput = document.getElementById('downloadFileName');
 
 const reviewInput = document.getElementById('reviewInput');
 const reviewFile = document.getElementById('reviewFile');
@@ -12,7 +9,6 @@ const submitReviewBtn = document.getElementById('submitReviewBtn');
 const reviewStatus = document.getElementById('reviewStatus');
 
 const uploadStatus = document.getElementById('uploadStatus');
-const downloadStatus = document.getElementById('downloadStatus');
 
 const loginBtn = document.getElementById('loginBtn');
 const loginModal = document.getElementById('loginModal');
@@ -32,9 +28,6 @@ const usernameDisplay = document.getElementById('usernameDisplay');
 const logoutBtn = document.getElementById('logoutBtn');
 
 const appContainer = document.getElementById('appContainer');
-
-const recentFilesList = document.getElementById('recentFilesList');
-const allFilesList = document.getElementById('allFilesList');
 
 /* STATUS MESSAGE HELPERS */
 function showStatus(element, message, type = 'success') {
@@ -90,8 +83,6 @@ uploadBtn.addEventListener('click', async () => {
     if (response.status >= 200 && response.status < 300) {
       showStatus(uploadStatus, 'Upload successful!', 'success');
       fileInput.value = '';
-      addToRecentFiles(file.name);
-      addToAllFiles(file.name);
     } else {
       const text = await response.text();
       showStatus(uploadStatus, `Upload failed: ${text}`, 'error');
@@ -99,8 +90,6 @@ uploadBtn.addEventListener('click', async () => {
   } catch (error) {
     showStatus(uploadStatus, 'Upload successful!', 'success');
     fileInput.value = '';
-    addToRecentFiles(file.name);
-    addToAllFiles(file.name);
   } finally {
     setLoading(uploadBtn, false);
   }
@@ -237,16 +226,6 @@ navLinks.forEach(link => {
   });
 });
 
-/* BASE64 TO BLOB HELPER */
-function base64ToBlob(base64) {
-  const binary = atob(base64);
-  const array = [];
-  for (let i = 0; i < binary.length; i++) {
-    array.push(binary.charCodeAt(i));
-  }
-  return new Blob([new Uint8Array(array)]);
-}
-
 /* USER PROFILE & AVATAR GENERATION (Pixelated Identicon) */
 function setUser(username) {
   localStorage.setItem('pr_username', username);
@@ -262,7 +241,7 @@ function updateUserProfile() {
   const username = localStorage.getItem('pr_username');
   const isLoggedIn = !!username;
 
-  usernameDisplay.textContent = isLoggedIn ? username : '';
+  usernameDisplay.textContent = isLoggedIn ? username : 'Guest';
   loginBtn.hidden = isLoggedIn;
   logoutBtn.hidden = !isLoggedIn;
 
@@ -271,7 +250,6 @@ function updateUserProfile() {
     userProfile.setAttribute('tabindex', '0');
   } else {
     clearCanvas(userAvatar);
-    usernameDisplay.textContent = 'Guest';
     userProfile.removeAttribute('tabindex');
   }
 }
@@ -294,8 +272,8 @@ function generateIdenticon(name, canvas) {
   }
 
   // Colors based on theme
-  const bgColor = getComputedStyle(document.documentElement).getPropertyValue('--sidebar-bg').trim() || '#0F1012';
-  const fgColor = getComputedStyle(document.documentElement).getPropertyValue('--primary-color').trim() || '#06F';
+  const bgColor = getComputedStyle(document.documentElement).getPropertyValue('--sidebar-bg').trim() || '#0d1117';
+  const fgColor = getComputedStyle(document.documentElement).getPropertyValue('--primary-color').trim() || '#007ee5';
 
   ctx.fillStyle = bgColor;
   ctx.fillRect(0, 0, size, size);
@@ -354,59 +332,8 @@ themeToggle.addEventListener('click', () => {
   }
 });
 
-/* File management - simple demo for recent and all files */
-let recentFiles = [];
-let allFiles = [];
-
-function addToRecentFiles(fileName) {
-  if (!fileName) return;
-  recentFiles = recentFiles.filter(f => f !== fileName);
-  recentFiles.unshift(fileName);
-  if (recentFiles.length > 5) recentFiles.pop();
-  renderRecentFiles();
-}
-
-function addToAllFiles(fileName) {
-  if (!fileName) return;
-  if (!allFiles.includes(fileName)) {
-    allFiles.push(fileName);
-    allFiles.sort();
-  }
-  renderAllFiles();
-}
-
-function renderRecentFiles() {
-  recentFilesList.innerHTML = '';
-  if (recentFiles.length === 0) {
-    recentFilesList.innerHTML = '<li><em>No recent files.</em></li>';
-    return;
-  }
-  recentFiles.forEach(file => {
-    const li = document.createElement('li');
-    li.tabIndex = 0;
-    li.textContent = file;
-    recentFilesList.appendChild(li);
-  });
-}
-
-function renderAllFiles() {
-  allFilesList.innerHTML = '';
-  if (allFiles.length === 0) {
-    allFilesList.innerHTML = '<li><em>No files uploaded yet.</em></li>';
-    return;
-  }
-  allFiles.forEach(file => {
-    const li = document.createElement('li');
-    li.tabIndex = 0;
-    li.textContent = file;
-    allFilesList.appendChild(li);
-  });
-}
-
-/* Initialize on load */
+/* Initialize */
 window.addEventListener('DOMContentLoaded', () => {
   loadTheme();
   updateUserProfile();
-  renderRecentFiles();
-  renderAllFiles();
 });
