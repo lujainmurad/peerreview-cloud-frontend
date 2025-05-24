@@ -27,7 +27,9 @@ const userAvatar = document.getElementById('userAvatar');
 const usernameDisplay = document.getElementById('usernameDisplay');
 const logoutBtn = document.getElementById('logoutBtn');
 
-const appContainer = document.getElementById('appContainer');
+const profileModal = document.getElementById('profileModal');
+const closeProfileBtn = document.getElementById('closeProfileBtn');
+const profileCloseBtn = document.getElementById('profileCloseBtn');
 
 /* STATUS MESSAGE HELPERS */
 function showStatus(element, message, type = 'success') {
@@ -204,6 +206,35 @@ function closeLoginModal() {
   loginBtn.focus();
 }
 
+/* PROFILE MODAL HANDLERS */
+userProfile.addEventListener('click', () => {
+  if (!logoutBtn.hidden) return; // logged in - do nothing for now
+  openProfileModal();
+});
+userProfile.addEventListener('keypress', e => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    if (!logoutBtn.hidden) return;
+    openProfileModal();
+  }
+});
+closeProfileBtn.addEventListener('click', closeProfileModal);
+profileCloseBtn.addEventListener('click', closeProfileModal);
+
+function openProfileModal() {
+  profileModal.classList.add('open');
+  modalBackdrop.classList.add('visible');
+  profileModal.removeAttribute('aria-hidden');
+  profileModal.focus();
+}
+
+function closeProfileModal() {
+  profileModal.classList.remove('open');
+  modalBackdrop.classList.remove('visible');
+  profileModal.setAttribute('aria-hidden', 'true');
+  userProfile.focus();
+}
+
 /* SIDEBAR TOGGLE */
 sidebarToggle.addEventListener('click', () => {
   const isClosed = sidebar.classList.toggle('closed');
@@ -272,8 +303,8 @@ function generateIdenticon(name, canvas) {
   }
 
   // Colors based on theme
-  const bgColor = getComputedStyle(document.documentElement).getPropertyValue('--sidebar-bg').trim() || '#161b22';
-  const fgColor = getComputedStyle(document.documentElement).getPropertyValue('--primary-color').trim() || '#007ee5';
+  const bgColor = getComputedStyle(document.documentElement).getPropertyValue('--sidebar-bg').trim() || '#111820';
+  const fgColor = getComputedStyle(document.documentElement).getPropertyValue('--primary-color').trim() || '#0052cc';
 
   ctx.fillStyle = bgColor;
   ctx.fillRect(0, 0, size, size);
