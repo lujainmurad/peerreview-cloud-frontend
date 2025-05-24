@@ -8,45 +8,66 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
 </head>
 <body>
-  <header>
-    <h1>PeerReview Cloud</h1>
-    <p class="tagline">
-      Secure & scalable academic peer review platform.
-    </p>
-  </header>
-
-  <main>
-    <section class="intro">
-      <p>
-        PeerReview Cloud simplifies and secures the academic peer review process. Upload papers, assign reviewers, and exchange feedback — all in one modern cloud platform.
-      </p>
-      <p>
-        Designed for academic institutions and researchers, PeerReview Cloud centralizes collaboration while ensuring data privacy and accessibility.
-      </p>
-    </section>
-
-    <section id="upload-section" class="action-section">
-      <h2>Upload Paper</h2>
-      <div class="input-group">
-        <input type="file" id="fileInput" aria-label="Select a paper file to upload" />
-        <button id="uploadBtn" aria-live="polite">Upload</button>
+  <div class="app-container">
+    <nav class="sidebar" aria-label="Primary Navigation">
+      <div class="sidebar-header">
+        <h1 class="logo">PeerReview</h1>
+        <button class="login-btn" id="loginBtn">Login</button>
       </div>
-      <p id="uploadStatus" class="status-message" role="alert" aria-atomic="true"></p>
-    </section>
+      <ul class="nav-list" role="menu">
+        <li role="none"><a href="#" role="menuitem" class="nav-link active" aria-current="page">Home</a></li>
+        <li role="none"><a href="#upload-section" role="menuitem" class="nav-link">Upload</a></li>
+        <li role="none"><a href="#review-section" role="menuitem" class="nav-link">Reviews</a></li>
+        <li role="none"><a href="#admin-section" role="menuitem" class="nav-link">Admin</a></li>
+      </ul>
+      <footer class="sidebar-footer">
+        <small>© 2025 PeerReview Cloud</small>
+      </footer>
+    </nav>
 
-    <section id="download-section" class="action-section">
-      <h2>Download Paper</h2>
-      <div class="input-group">
-        <input type="text" id="downloadFileName" placeholder="Enter filename" aria-label="Enter filename to download" />
-        <button id="downloadBtn" aria-live="polite">Download</button>
-      </div>
-      <p id="downloadStatus" class="status-message" role="alert" aria-atomic="true"></p>
-    </section>
-  </main>
+    <main class="main-content" role="main">
+      <section class="hero">
+        <h2>Secure & Scalable Academic Peer Review</h2>
+        <p>
+          PeerReview Cloud centralizes paper submissions, review feedback, and administration — all in one secure, user-friendly platform designed for authors, reviewers, and admins.
+        </p>
+        <ul class="features-list">
+          <li><strong>User Roles:</strong> Author, Reviewer, Admin with role-based access</li>
+          <li><strong>Upload & Download:</strong> Submit papers and supplementary files securely</li>
+          <li><strong>Review Submission:</strong> Structured evaluations via text or documents</li>
+          <li><strong>Secure & Logged:</strong> All file operations are logged, versioned, and auditable</li>
+          <li><strong>Scalable:</strong> Supports small research groups to large conferences</li>
+        </ul>
+      </section>
 
-  <footer>
-    <small>© 2025 PeerReview Cloud | Empowering academic collaboration</small>
-  </footer>
+      <section id="upload-section" class="action-section" tabindex="-1" aria-label="Upload Papers">
+        <h3>Upload Paper</h3>
+        <div class="input-group">
+          <input type="file" id="fileInput" aria-label="Select a paper file to upload" />
+          <button id="uploadBtn" aria-live="polite">Upload</button>
+        </div>
+        <p id="uploadStatus" class="status-message" role="alert" aria-atomic="true"></p>
+      </section>
+
+      <section id="review-section" class="action-section" tabindex="-1" aria-label="Submit Review Feedback">
+        <h3>Submit Review Feedback</h3>
+        <textarea id="reviewInput" placeholder="Write your review here or attach a file below..." rows="5" aria-label="Review text"></textarea>
+        <div class="input-group">
+          <input type="file" id="reviewFile" aria-label="Attach a review document" />
+          <button id="submitReviewBtn">Submit Review</button>
+        </div>
+        <p id="reviewStatus" class="status-message" role="alert" aria-atomic="true"></p>
+      </section>
+
+      <section id="admin-section" class="action-section" tabindex="-1" aria-label="Admin Controls">
+        <h3>Admin Panel</h3>
+        <p>
+          Manage users, papers, reviews, and system settings securely from here.
+        </p>
+        <button id="adminLoginBtn" class="btn-primary">Admin Login</button>
+      </section>
+    </main>
+  </div>
 
   <script src="app.js"></script>
 </body>
