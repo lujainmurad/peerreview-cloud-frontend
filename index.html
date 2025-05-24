@@ -10,7 +10,15 @@
 <body>
   <div class="app-container" id="appContainer">
     <nav class="sidebar" aria-label="Primary Navigation" id="sidebar">
-      <div class="sidebar-header" title="PeerReview Cloud Home">
+      <div class="sidebar-top">
+        <a href="#" class="logo-link" aria-label="PeerReview Home">
+          <svg id="peerReviewIcon" width="36" height="36" viewBox="0 0 120 120" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" fill="none" role="img">
+            <polygon fill="#0055cc" points="60,15 90,45 60,75 30,45"/>
+            <polygon fill="#003d99" points="60,75 90,45 90,90 60,120 30,90 30,45"/>
+          </svg>
+          <span class="logo-text" id="logoText">PeerReview</span>
+        </a>
+
         <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar" aria-expanded="true" title="Toggle sidebar">
           <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
             <line x1="3" y1="6" x2="17" y2="6"/>
@@ -18,14 +26,6 @@
             <line x1="3" y1="18" x2="17" y2="18"/>
           </svg>
         </button>
-
-        <a href="#" class="logo-link" aria-label="PeerReview Home">
-          <svg id="peerReviewIcon" width="36" height="36" viewBox="0 0 120 120" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" fill="none" aria-label="PeerReview logo" role="img">
-            <polygon fill="#0055cc" points="60,15 90,45 60,75 30,45"/>
-            <polygon fill="#003d99" points="60,75 90,45 90,90 60,120 30,90 30,45"/>
-          </svg>
-          <span class="logo-text" id="logoText">PeerReview</span>
-        </a>
       </div>
 
       <ul class="nav-list" role="menu" id="navList">
@@ -49,19 +49,17 @@
         </li>
       </ul>
 
-      <div class="sidebar-footer">
-        <div class="user-profile" id="userProfile" tabindex="0" aria-label="User profile" role="button" aria-haspopup="dialog" aria-controls="profileModal" title="Open profile customization">
-          <canvas id="userAvatar" width="40" height="40" aria-hidden="true"></canvas>
-          <span id="usernameDisplay" class="username-text">Guest</span>
-          <button id="logoutBtn" title="Logout" aria-label="Logout" hidden>&times;</button>
-        </div>
+      <div class="sidebar-bottom">
         <button class="login-btn" id="loginBtn" aria-haspopup="dialog" aria-controls="loginModal" aria-expanded="false" title="User Login">
           Login
         </button>
-        <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark/light mode" title="Toggle dark/light mode">
-          🌙
-        </button>
-        <small>© 2025 PeerReview Cloud</small>
+
+        <label class="theme-switch" for="themeToggle">
+          <input type="checkbox" id="themeToggle" aria-label="Toggle dark/light mode" />
+          <span class="slider"></span>
+        </label>
+
+        <small class="copyright">© 2025 PeerReview Cloud</small>
       </div>
     </nav>
 
@@ -82,25 +80,21 @@
 
       <section id="upload-section" class="action-section" tabindex="-1" aria-label="Upload Papers">
         <h3>Upload Paper</h3>
-        <form id="uploadForm" class="dropzone" aria-describedby="uploadStatus" novalidate>
+        <div class="upload-container">
           <input type="file" id="fileInput" aria-label="Select a paper file to upload" />
           <button id="uploadBtn" type="button" aria-live="polite">Upload</button>
-          <p id="uploadStatus" class="status-message" role="alert" aria-atomic="true"></p>
-          <p class="drop-hint">Or drag & drop files here</p>
-        </form>
+        </div>
+        <p id="uploadStatus" class="status-message" role="alert" aria-atomic="true"></p>
       </section>
 
       <section id="review-section" class="action-section" tabindex="-1" aria-label="Submit Review Feedback">
         <h3>Submit Review Feedback</h3>
-        <form id="reviewForm" class="dropzone" aria-describedby="reviewStatus" novalidate>
-          <textarea id="reviewInput" placeholder="Write your review here or attach a file below..." aria-label="Review text"></textarea>
-          <div class="input-group review-input-group">
-            <input type="file" id="reviewFile" aria-label="Attach a review document" />
-            <button id="submitReviewBtn" type="button">Submit Review</button>
-          </div>
-          <p id="reviewStatus" class="status-message" role="alert" aria-atomic="true"></p>
-          <p class="drop-hint">Or drag & drop files here</p>
-        </form>
+        <textarea id="reviewInput" placeholder="Write your review here or attach a file below..." aria-label="Review text"></textarea>
+        <div class="upload-container review-upload">
+          <input type="file" id="reviewFile" aria-label="Attach a review document" />
+          <button id="submitReviewBtn" type="button">Submit Review</button>
+        </div>
+        <p id="reviewStatus" class="status-message" role="alert" aria-atomic="true"></p>
       </section>
 
       <section id="admin-section" class="action-section" tabindex="-1" aria-label="Admin Controls">
@@ -128,16 +122,6 @@
         <button type="submit" class="btn-primary">Login</button>
         <p id="loginStatus" class="status-message" role="alert" aria-live="assertive"></p>
       </form>
-    </div>
-  </div>
-
-  <!-- Profile Modal Placeholder -->
-  <div id="profileModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="profileTitle" aria-hidden="true" tabindex="-1">
-    <div class="modal-content">
-      <button class="modal-close" id="closeProfileBtn" aria-label="Close profile customization">&times;</button>
-      <h2 id="profileTitle">Profile Customization</h2>
-      <p>Feature coming soon! Here you could customize your avatar and settings.</p>
-      <button class="btn-primary" id="profileCloseBtn">Close</button>
     </div>
   </div>
 
