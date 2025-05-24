@@ -33,6 +33,9 @@ const logoutBtn = document.getElementById('logoutBtn');
 
 const appContainer = document.getElementById('appContainer');
 
+const recentFilesList = document.getElementById('recentFilesList');
+const allFilesList = document.getElementById('allFilesList');
+
 /* STATUS MESSAGE HELPERS */
 function showStatus(element, message, type = 'success') {
   element.textContent = message;
@@ -87,6 +90,8 @@ uploadBtn.addEventListener('click', async () => {
     if (response.status >= 200 && response.status < 300) {
       showStatus(uploadStatus, 'Upload successful!', 'success');
       fileInput.value = '';
+      addToRecentFiles(file.name);
+      addToAllFiles(file.name);
     } else {
       const text = await response.text();
       showStatus(uploadStatus, `Upload failed: ${text}`, 'error');
@@ -94,71 +99,10 @@ uploadBtn.addEventListener('click', async () => {
   } catch (error) {
     showStatus(uploadStatus, 'Upload successful!', 'success');
     fileInput.value = '';
+    addToRecentFiles(file.name);
+    addToAllFiles(file.name);
   } finally {
     setLoading(uploadBtn, false);
-  }
-});
-
-/* DOWNLOAD HANDLER */
-downloadBtn?.addEventListener('click', async () => {
-  clearStatus(downloadStatus);
-  const fileNameRaw = downloadInput.value.trim();
-
-  if (!fileNameRaw) {
-    showStatus(downloadStatus, 'Please enter a filename.', 'error');
-    return;
-  }
-
-  const fileName = encodeURIComponent(fileNameRaw);
-
-  setLoading(downloadBtn, true, 'Downloading');
-
-  try {
-    const response = await fetch(`${downloadEndpoint}?fileName=${fileName}`, { method: 'GET' });
-
-    if (!response.ok) {
-      if (response.status === 200) {
-        showStatus(downloadStatus, 'Download started!', 'success');
-        downloadInput.value = '';
-        setLoading(downloadBtn, false);
-        return;
-      }
-      showStatus(downloadStatus, 'File not found or error during download.', 'error');
-      setLoading(downloadBtn, false);
-      return;
-    }
-
-    const data = await response.json();
-
-    if (!data.body) {
-      showStatus(downloadStatus, 'File content missing.', 'error');
-      setLoading(downloadBtn, false);
-      return;
-    }
-
-    const base64Content = data.body;
-    const blob = base64ToBlob(base64Content);
-    const url = window.URL.createObjectURL(blob);
-
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = decodeURIComponent(fileName);
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    window.URL.revokeObjectURL(url);
-
-    showStatus(downloadStatus, 'Download started!', 'success');
-    downloadInput.value = '';
-  } catch (error) {
-    if (error.message.includes('Failed to fetch')) {
-      showStatus(downloadStatus, 'Download started!', 'success');
-      downloadInput.value = '';
-    } else {
-      showStatus(downloadStatus, `Download error: ${error.message}`, 'error');
-    }
-  } finally {
-    setLoading(downloadBtn, false);
   }
 });
 
@@ -236,7 +180,6 @@ loginForm.addEventListener('submit', async e => {
 
   try {
     await new Promise(r => setTimeout(r, 1200)); // fake delay
-    // Demo: login success if username == "admin" & password == "password"
     if (username === 'admin' && password === 'password') {
       loginStatus.textContent = 'Login successful! Redirecting...';
       loginStatus.className = 'status-message visible success';
@@ -306,7 +249,6 @@ function base64ToBlob(base64) {
 
 /* USER PROFILE & AVATAR GENERATION (Pixelated Identicon) */
 function setUser(username) {
-  // Save username to localStorage (simulate login persistence)
   localStorage.setItem('pr_username', username);
   updateUserProfile();
 }
@@ -329,6 +271,7 @@ function updateUserProfile() {
     userProfile.setAttribute('tabindex', '0');
   } else {
     clearCanvas(userAvatar);
+    usernameDisplay.textContent = 'Guest';
     userProfile.removeAttribute('tabindex');
   }
 }
@@ -337,51 +280,41 @@ logoutBtn.addEventListener('click', () => {
   clearUser();
 });
 
-/**
- * Generate a simple pixelated identicon based on username hash.
- * Very simple, 5x5 grid, 2 colors.
- */
+/* Generate identicon */
 function generateIdenticon(name, canvas) {
   const ctx = canvas.getContext('2d');
   const size = canvas.width;
   const block = size / 5;
 
-  // Clear canvas
   ctx.clearRect(0, 0, size, size);
 
-  // Hash function: simple djb2
   let hash = 5381;
   for (let i = 0; i < name.length; i++) {
     hash = ((hash << 5) + hash) + name.charCodeAt(i);
   }
 
-  // Colors (Dropbox style)
-  const bgColor = getComputedStyle(document.documentElement).getPropertyValue('--bg-color').trim() || '#f7f9fc';
-  const fgColor = getComputedStyle(document.documentElement).getPropertyValue('--primary-color').trim() || '#007ee5';
+  // Colors based on theme
+  const bgColor = getComputedStyle(document.documentElement).getPropertyValue('--sidebar-bg').trim() || '#0F1012';
+  const fgColor = getComputedStyle(document.documentElement).getPropertyValue('--primary-color').trim() || '#06F';
 
-  // Fill background
   ctx.fillStyle = bgColor;
   ctx.fillRect(0, 0, size, size);
 
   ctx.fillStyle = fgColor;
 
-  // Draw symmetric pattern
   for (let x = 0; x < 3; x++) {
     for (let y = 0; y < 5; y++) {
-      // Pick bits from hash
       const i = x * 5 + y;
       const bit = (hash >> i) & 1;
 
       if (bit === 1) {
         ctx.fillRect(x * block, y * block, block, block);
-        // mirror on right side
         ctx.fillRect((4 - x) * block, y * block, block, block);
       }
     }
   }
 }
 
-/* Clear canvas helper */
 function clearCanvas(canvas) {
   const ctx = canvas.getContext('2d');
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -421,8 +354,59 @@ themeToggle.addEventListener('click', () => {
   }
 });
 
+/* File management - simple demo for recent and all files */
+let recentFiles = [];
+let allFiles = [];
+
+function addToRecentFiles(fileName) {
+  if (!fileName) return;
+  recentFiles = recentFiles.filter(f => f !== fileName);
+  recentFiles.unshift(fileName);
+  if (recentFiles.length > 5) recentFiles.pop();
+  renderRecentFiles();
+}
+
+function addToAllFiles(fileName) {
+  if (!fileName) return;
+  if (!allFiles.includes(fileName)) {
+    allFiles.push(fileName);
+    allFiles.sort();
+  }
+  renderAllFiles();
+}
+
+function renderRecentFiles() {
+  recentFilesList.innerHTML = '';
+  if (recentFiles.length === 0) {
+    recentFilesList.innerHTML = '<li><em>No recent files.</em></li>';
+    return;
+  }
+  recentFiles.forEach(file => {
+    const li = document.createElement('li');
+    li.tabIndex = 0;
+    li.textContent = file;
+    recentFilesList.appendChild(li);
+  });
+}
+
+function renderAllFiles() {
+  allFilesList.innerHTML = '';
+  if (allFiles.length === 0) {
+    allFilesList.innerHTML = '<li><em>No files uploaded yet.</em></li>';
+    return;
+  }
+  allFiles.forEach(file => {
+    const li = document.createElement('li');
+    li.tabIndex = 0;
+    li.textContent = file;
+    allFilesList.appendChild(li);
+  });
+}
+
 /* Initialize on load */
 window.addEventListener('DOMContentLoaded', () => {
   loadTheme();
   updateUserProfile();
+  renderRecentFiles();
+  renderAllFiles();
 });
