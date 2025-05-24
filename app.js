@@ -272,7 +272,7 @@ function generateIdenticon(name, canvas) {
   }
 
   // Colors based on theme
-  const bgColor = getComputedStyle(document.documentElement).getPropertyValue('--sidebar-bg').trim() || '#0d1117';
+  const bgColor = getComputedStyle(document.documentElement).getPropertyValue('--sidebar-bg').trim() || '#161b22';
   const fgColor = getComputedStyle(document.documentElement).getPropertyValue('--primary-color').trim() || '#007ee5';
 
   ctx.fillStyle = bgColor;
