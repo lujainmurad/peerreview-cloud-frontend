@@ -9,24 +9,53 @@
 </head>
 <body>
   <div class="app-container">
-    <nav class="sidebar" aria-label="Primary Navigation">
+    <nav class="sidebar" aria-label="Primary Navigation" id="sidebar">
       <div class="sidebar-header">
         <h1 class="logo">PeerReview</h1>
-        <button class="login-btn" id="loginBtn">Login</button>
+        <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle menu" aria-expanded="true">
+          <svg width="24" height="24" fill="none" stroke="#a4d7d1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+        </button>
       </div>
       <ul class="nav-list" role="menu">
-        <li role="none"><a href="#" role="menuitem" class="nav-link active" aria-current="page">Home</a></li>
-        <li role="none"><a href="#upload-section" role="menuitem" class="nav-link">Upload</a></li>
-        <li role="none"><a href="#review-section" role="menuitem" class="nav-link">Reviews</a></li>
-        <li role="none"><a href="#admin-section" role="menuitem" class="nav-link">Admin</a></li>
+        <li role="none">
+          <a href="#" role="menuitem" class="nav-link active" aria-current="page" tabindex="0">
+            <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M3 9L12 2l9 7v11a2 2 0 0 1-2 2h-4v-7H9v7H5a2 2 0 0 1-2-2z"/></svg>
+            Home
+          </a>
+        </li>
+        <li role="none">
+          <a href="#upload-section" role="menuitem" class="nav-link" tabindex="-1">
+            <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3v12M12 3l-4 4m4-4l4 4M4 17h16"/></svg>
+            Upload
+          </a>
+        </li>
+        <li role="none">
+          <a href="#review-section" role="menuitem" class="nav-link" tabindex="-1">
+            <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="2" stroke="currentColor" fill="none"/><path d="M8 14l3-3 3 3" stroke-width="2" stroke="currentColor" fill="none"/></svg>
+            Reviews
+          </a>
+        </li>
+        <li role="none">
+          <a href="#admin-section" role="menuitem" class="nav-link" tabindex="-1">
+            <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16" stroke-width="2" stroke="currentColor" fill="none"/></svg>
+            Admin
+          </a>
+        </li>
       </ul>
+      <button class="login-btn" id="loginBtn" aria-haspopup="dialog" aria-controls="loginModal" aria-expanded="false">
+        Login
+      </button>
       <footer class="sidebar-footer">
         <small>© 2025 PeerReview Cloud</small>
       </footer>
     </nav>
 
-    <main class="main-content" role="main">
-      <section class="hero">
+    <main class="main-content" role="main" tabindex="-1">
+      <section class="hero" aria-label="Platform Overview">
         <h2>Secure & Scalable Academic Peer Review</h2>
         <p>
           PeerReview Cloud centralizes paper submissions, review feedback, and administration — all in one secure, user-friendly platform designed for authors, reviewers, and admins.
@@ -68,6 +97,26 @@
       </section>
     </main>
   </div>
+
+  <!-- Login Modal -->
+  <div id="loginModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="loginTitle" aria-hidden="true" tabindex="-1">
+    <div class="modal-content">
+      <button class="modal-close" id="closeLoginBtn" aria-label="Close login dialog">&times;</button>
+      <h2 id="loginTitle">User Login</h2>
+      <form id="loginForm" novalidate>
+        <label for="usernameInput">Username or Email</label>
+        <input type="text" id="usernameInput" name="username" required autocomplete="username" />
+        
+        <label for="passwordInput">Password</label>
+        <input type="password" id="passwordInput" name="password" required autocomplete="current-password" />
+        
+        <button type="submit" class="btn-primary">Login</button>
+        <p id="loginStatus" class="status-message" role="alert" aria-live="assertive"></p>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="modalBackdrop" tabindex="-1" hidden></div>
 
   <script src="app.js"></script>
 </body>
