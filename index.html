@@ -18,14 +18,6 @@
           </svg>
           <span class="logo-text" id="logoText">PeerReview</span>
         </a>
-
-        <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar" aria-expanded="true" title="Toggle sidebar">
-          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
-            <line x1="3" y1="6" x2="17" y2="6"/>
-            <line x1="3" y1="12" x2="17" y2="12"/>
-            <line x1="3" y1="18" x2="17" y2="18"/>
-          </svg>
-        </button>
       </div>
 
       <ul class="nav-list" role="menu" id="navList">
@@ -54,10 +46,18 @@
           Login
         </button>
 
-        <label class="theme-switch" for="themeToggle">
+        <label class="theme-switch" for="themeToggle" title="Toggle dark/light mode">
           <input type="checkbox" id="themeToggle" aria-label="Toggle dark/light mode" />
           <span class="slider"></span>
         </label>
+
+        <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar" aria-expanded="true" title="Toggle sidebar">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+            <line x1="3" y1="6" x2="17" y2="6"/>
+            <line x1="3" y1="12" x2="17" y2="12"/>
+            <line x1="3" y1="18" x2="17" y2="18"/>
+          </svg>
+        </button>
 
         <small class="copyright">© 2025 PeerReview Cloud</small>
       </div>
@@ -67,14 +67,14 @@
       <section class="hero" aria-label="Platform Overview">
         <h2>Secure, Scalable Peer Review Cloud</h2>
         <p class="hero-desc">
-          Centralize paper submissions, feedback, and administration in one secure, easy-to-use platform tailored for authors, reviewers, and admins.
+          Streamline submissions, reviews, and management with a secure, user-friendly platform designed for academic excellence.
         </p>
         <ul class="features-list">
-          <li><strong>User Roles:</strong> Author, Reviewer, Admin with fine-grained access</li>
-          <li><strong>Upload & Download:</strong> Submit and retrieve papers & supplementary files securely</li>
-          <li><strong>Review Submission:</strong> Structured evaluations via text or attachments</li>
-          <li><strong>Secure & Audited:</strong> All operations logged, versioned, and monitored</li>
-          <li><strong>Highly Scalable:</strong> For small teams or large academic conferences</li>
+          <li><strong>User Roles:</strong> Authors, Reviewers, Admins with precise access control</li>
+          <li><strong>Upload & Download:</strong> Safe, reliable document exchange</li>
+          <li><strong>Review Submission:</strong> Structured, flexible feedback options</li>
+          <li><strong>Audit & Security:</strong> Comprehensive logging and version control</li>
+          <li><strong>Scalable:</strong> Ideal for labs, conferences, and institutions</li>
         </ul>
       </section>
 
@@ -89,7 +89,7 @@
 
       <section id="review-section" class="action-section" tabindex="-1" aria-label="Submit Review Feedback">
         <h3>Submit Review Feedback</h3>
-        <textarea id="reviewInput" placeholder="Write your review here or attach a file below..." aria-label="Review text"></textarea>
+        <textarea id="reviewInput" placeholder="Write your review or attach a file..." aria-label="Review text"></textarea>
         <div class="upload-container review-upload">
           <input type="file" id="reviewFile" aria-label="Attach a review document" />
           <button id="submitReviewBtn" type="button">Submit Review</button>
