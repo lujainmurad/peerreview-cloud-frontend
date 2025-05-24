@@ -23,6 +23,7 @@ const loginStatus = document.getElementById('loginStatus');
 
 const sidebar = document.getElementById('sidebar');
 const sidebarToggle = document.getElementById('sidebarToggle');
+const navList = document.querySelector('.nav-list');
 const navLinks = document.querySelectorAll('.nav-link');
 
 /* STATUS MESSAGE HELPERS */
@@ -155,6 +156,8 @@ downloadBtn.addEventListener('click', async () => {
 });
 
 /* REVIEW SUBMISSION HANDLER */
+const submitReviewBtn = document.getElementById('submitReviewBtn');
+
 submitReviewBtn.addEventListener('click', async () => {
   clearStatus(reviewStatus);
   const reviewText = reviewInput.value.trim();
@@ -225,18 +228,15 @@ loginForm.addEventListener('submit', async e => {
     return;
   }
 
-  // Simulate login request - replace with real auth call
   setLoading(loginForm.querySelector('button[type="submit"]'), true, 'Logging in');
 
   try {
     await new Promise(r => setTimeout(r, 1200)); // fake delay
-    // Fake success if username = "admin", else fail
     if (username === 'admin' && password === 'password') {
       loginStatus.textContent = 'Login successful! Redirecting...';
       loginStatus.className = 'status-message visible success';
       setTimeout(() => {
         closeLoginModal();
-        // Redirect or update UI here after login
         alert('Logged in as admin. (Demo)');
       }, 1000);
     } else {
@@ -267,30 +267,24 @@ function closeLoginModal() {
   loginBtn.focus();
 }
 
-/* SIDEBAR TOGGLE FOR MOBILE */
+/* SIDEBAR TOGGLE */
 sidebarToggle.addEventListener('click', () => {
-  const expanded = sidebarToggle.getAttribute('aria-expanded') === 'true';
-  if (expanded) {
-    sidebarToggle.setAttribute('aria-expanded', 'false');
-    sidebar.classList.add('closed');
-    document.querySelector('.nav-list').classList.remove('open');
-  } else {
-    sidebarToggle.setAttribute('aria-expanded', 'true');
-    sidebar.classList.remove('closed');
-    document.querySelector('.nav-list').classList.add('open');
+  const isClosed = sidebar.classList.toggle('closed');
+  sidebarToggle.setAttribute('aria-expanded', !isClosed);
+  if (window.innerWidth <= 768) {
+    navList.classList.toggle('open', !isClosed);
   }
 });
 
-/* NAV LINK FOCUS AND ACTIVE MANAGEMENT */
+/* NAV LINK ACTIVE STATE & CLOSE MOBILE MENU */
 navLinks.forEach(link => {
   link.addEventListener('click', e => {
     navLinks.forEach(l => l.classList.remove('active'));
     e.currentTarget.classList.add('active');
-    // Close sidebar on mobile after selection
     if (window.innerWidth <= 768) {
       sidebar.classList.add('closed');
       sidebarToggle.setAttribute('aria-expanded', 'false');
-      document.querySelector('.nav-list').classList.remove('open');
+      navList.classList.remove('open');
     }
   });
 });
