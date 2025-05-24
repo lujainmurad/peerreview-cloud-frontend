@@ -167,6 +167,7 @@ body, html, .app-container {
   color: var(--sidebar-bg);
   cursor: default;
   font-weight: 700;
+
 }
 
 .sidebar.closed .nav-link span {
