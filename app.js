@@ -167,7 +167,6 @@ loginForm.addEventListener('submit', async e => {
       loginStatus.className = 'status-message visible success';
       setTimeout(() => {
         closeLoginModal();
-        setUser(username);
       }, 1000);
     } else {
       loginStatus.textContent = 'Invalid username or password.';
@@ -210,7 +209,7 @@ sidebarToggle.addEventListener('click', () => {
   }
 });
 
-/* NAV LINK ACTIVE STATE & CLOSE MOBILE MENU */
+/* NAV LINK ACTIVE STATE */
 navLinks.forEach(link => {
   link.addEventListener('click', e => {
     navLinks.forEach(l => l.classList.remove('active'));
@@ -220,8 +219,28 @@ navLinks.forEach(link => {
 
 /* Initialize */
 window.addEventListener('DOMContentLoaded', () => {
-  // On load, if sidebar is closed hide login button
   if (sidebar.classList.contains('closed')) {
     loginBtn.style.display = 'none';
   }
+  // Set theme toggle switch initial state
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  let theme = localStorage.getItem('pr_theme') || (prefersDark ? 'dark' : 'light');
+  applyTheme(theme);
+
+  document.getElementById('themeToggle').checked = (theme === 'dark');
+});
+
+const themeToggle = document.getElementById('themeToggle');
+
+function applyTheme(theme) {
+  if (theme === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+  } else {
+    document.documentElement.setAttribute('data-theme', 'light');
+  }
+  localStorage.setItem('pr_theme', theme);
+}
+
+themeToggle.addEventListener('change', () => {
+  applyTheme(themeToggle.checked ? 'dark' : 'light');
 });
