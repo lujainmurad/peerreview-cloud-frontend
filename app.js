@@ -2,11 +2,13 @@ const uploadEndpoint = 'https://3s2sew1mjh.execute-api.eu-north-1.amazonaws.com/
 
 const uploadBtn = document.getElementById('uploadBtn');
 const fileInput = document.getElementById('fileInput');
+const uploadForm = document.getElementById('uploadForm');
 
 const reviewInput = document.getElementById('reviewInput');
 const reviewFile = document.getElementById('reviewFile');
 const submitReviewBtn = document.getElementById('submitReviewBtn');
 const reviewStatus = document.getElementById('reviewStatus');
+const reviewForm = document.getElementById('reviewForm');
 
 const uploadStatus = document.getElementById('uploadStatus');
 
@@ -19,7 +21,7 @@ const loginStatus = document.getElementById('loginStatus');
 
 const sidebar = document.getElementById('sidebar');
 const sidebarToggle = document.getElementById('sidebarToggle');
-const navList = document.querySelector('.nav-list');
+const navList = document.getElementById('navList');
 const navLinks = document.querySelectorAll('.nav-link');
 
 const userProfile = document.getElementById('userProfile');
@@ -141,6 +143,44 @@ submitReviewBtn.addEventListener('click', async () => {
     reviewFile.value = '';
   } finally {
     setLoading(submitReviewBtn, false);
+  }
+});
+
+/* Drag & Drop handlers for Upload */
+uploadForm.addEventListener('dragover', e => {
+  e.preventDefault();
+  uploadForm.classList.add('dragover');
+});
+
+uploadForm.addEventListener('dragleave', e => {
+  e.preventDefault();
+  uploadForm.classList.remove('dragover');
+});
+
+uploadForm.addEventListener('drop', e => {
+  e.preventDefault();
+  uploadForm.classList.remove('dragover');
+  if (e.dataTransfer.files.length) {
+    fileInput.files = e.dataTransfer.files;
+  }
+});
+
+/* Drag & Drop handlers for Review */
+reviewForm.addEventListener('dragover', e => {
+  e.preventDefault();
+  reviewForm.classList.add('dragover');
+});
+
+reviewForm.addEventListener('dragleave', e => {
+  e.preventDefault();
+  reviewForm.classList.remove('dragover');
+});
+
+reviewForm.addEventListener('drop', e => {
+  e.preventDefault();
+  reviewForm.classList.remove('dragover');
+  if (e.dataTransfer.files.length) {
+    reviewFile.files = e.dataTransfer.files;
   }
 });
 
