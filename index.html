@@ -5,42 +5,47 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>PeerReview Cloud</title>
   <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
 </head>
 <body>
   <header>
     <h1>PeerReview Cloud</h1>
     <p class="tagline">
-      Simplifying and securing the academic peer review process with modern serverless cloud infrastructure.
+      Secure & scalable academic peer review platform.
     </p>
   </header>
 
   <main>
     <section class="intro">
       <p>
-        PeerReview Cloud is designed to simplify and secure the academic peer review process. The platform allows researchers to upload their papers, assign reviewers, and exchange feedback in a structured and secure environment. By utilizing modern serverless cloud infrastructure, PeerReview Cloud ensures scalability, cost-efficiency, and data privacy.
+        PeerReview Cloud simplifies and secures the academic peer review process. Upload papers, assign reviewers, and exchange feedback — all in one modern cloud platform.
       </p>
       <p>
-        This solution targets academic institutions, independent researchers, and scientific communities that currently rely on email or disconnected tools for collaboration. The goal is to centralize the document exchange and review process into a single secure platform accessible from any device.
+        Designed for academic institutions and researchers, PeerReview Cloud centralizes collaboration while ensuring data privacy and accessibility.
       </p>
     </section>
 
     <section id="upload-section" class="action-section">
       <h2>Upload Paper</h2>
-      <input type="file" id="fileInput" />
-      <button id="uploadBtn">Upload</button>
+      <div class="input-group">
+        <input type="file" id="fileInput" />
+        <button id="uploadBtn">Upload</button>
+      </div>
       <p id="uploadStatus" class="status-message"></p>
     </section>
 
     <section id="download-section" class="action-section">
       <h2>Download Paper</h2>
-      <input type="text" id="downloadFileName" placeholder="Enter filename" />
-      <button id="downloadBtn">Download</button>
+      <div class="input-group">
+        <input type="text" id="downloadFileName" placeholder="Enter filename" />
+        <button id="downloadBtn">Download</button>
+      </div>
       <p id="downloadStatus" class="status-message"></p>
     </section>
   </main>
 
   <footer>
-    <small>© 2025 PeerReview Cloud | Built for academic collaboration</small>
+    <small>© 2025 PeerReview Cloud | Empowering academic collaboration</small>
   </footer>
 
   <script src="app.js"></script>
