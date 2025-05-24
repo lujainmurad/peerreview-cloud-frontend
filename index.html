@@ -2,25 +2,46 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>PeerReview Cloud</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <h1>PeerReview Cloud</h1>
+  <header>
+    <h1>PeerReview Cloud</h1>
+    <p class="tagline">
+      Simplifying and securing the academic peer review process with modern serverless cloud infrastructure.
+    </p>
+  </header>
 
-  <section id="upload-section">
-    <h2>Upload Paper</h2>
-    <input type="file" id="fileInput" />
-    <button id="uploadBtn">Upload</button>
-    <p id="uploadStatus"></p>
-  </section>
+  <main>
+    <section class="intro">
+      <p>
+        PeerReview Cloud is designed to simplify and secure the academic peer review process. The platform allows researchers to upload their papers, assign reviewers, and exchange feedback in a structured and secure environment. By utilizing modern serverless cloud infrastructure, PeerReview Cloud ensures scalability, cost-efficiency, and data privacy.
+      </p>
+      <p>
+        This solution targets academic institutions, independent researchers, and scientific communities that currently rely on email or disconnected tools for collaboration. The goal is to centralize the document exchange and review process into a single secure platform accessible from any device.
+      </p>
+    </section>
 
-  <section id="download-section">
-    <h2>Download Paper</h2>
-    <input type="text" id="downloadFileName" placeholder="Enter filename" />
-    <button id="downloadBtn">Download</button>
-    <p id="downloadStatus"></p>
-  </section>
+    <section id="upload-section" class="action-section">
+      <h2>Upload Paper</h2>
+      <input type="file" id="fileInput" />
+      <button id="uploadBtn">Upload</button>
+      <p id="uploadStatus" class="status-message"></p>
+    </section>
+
+    <section id="download-section" class="action-section">
+      <h2>Download Paper</h2>
+      <input type="text" id="downloadFileName" placeholder="Enter filename" />
+      <button id="downloadBtn">Download</button>
+      <p id="downloadStatus" class="status-message"></p>
+    </section>
+  </main>
+
+  <footer>
+    <small>© 2025 PeerReview Cloud | Built for academic collaboration</small>
+  </footer>
 
   <script src="app.js"></script>
 </body>
